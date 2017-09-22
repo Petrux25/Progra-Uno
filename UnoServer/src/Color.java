@@ -8,6 +8,6 @@
  *
  * @author andpi
  */
-public enum CardTypes {
+public enum Color {
     
 }
