@@ -23,7 +23,10 @@ public class MainServer {
             String name="UNO";
             IRemoteUno interfaceUno=new Card();
             IRemoteUno stub=(IRemoteUno) UnicastRemoteObject.exportObject(interfaceUno,0);
-            Registry registry=LocateRegistry.createRegistry(9999);
+            
+    
+            Registry registry=LocateRegistry.createRegistry(1099);
+            
             registry.rebind(name,stub);
             System.out.println("Server running");
             
