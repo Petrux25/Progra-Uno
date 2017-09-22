@@ -23,10 +23,7 @@ public class MainServer {
             String name="UNO";
             IRemoteUno interfaceUno=new Card();
             IRemoteUno stub=(IRemoteUno) UnicastRemoteObject.exportObject(interfaceUno,0);
-            
-            
             Registry registry=LocateRegistry.createRegistry(9999);
-            
             registry.rebind(name,stub);
             System.out.println("Server running");
             
@@ -42,6 +39,7 @@ public class MainServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        new MainServer();
         // TODO code application logic here
     }
     

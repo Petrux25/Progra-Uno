@@ -22,7 +22,7 @@ public class UnoClient {
         try{
             String name = "UNO";
             Registry registry = LocateRegistry.getRegistry("25.7.195.205");
-            IRemote 
+ 
         }catch(Exception e){
             System.err.println("Error en el cliente ");
             e.printStackTrace();
