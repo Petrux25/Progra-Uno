@@ -24,7 +24,7 @@ public class Card extends CardBase implements IRemoteUno{
     //}
 
     @Override
-    public String mensaje(String mensaje) {
+    public void mensaje() {
         return "Hola duggo";
         
     }
