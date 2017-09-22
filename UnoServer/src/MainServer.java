@@ -5,6 +5,8 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import uno_interface.IRemoteUno;
 
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,6 +29,7 @@ public class MainServer {
             
             registry.rebind(name,stub);
             System.out.println("Server running");
+            
             
             
             
