@@ -15,7 +15,7 @@ import java.rmi.RemoteException;
  * @author andpi
  */
 public interface IRemoteUno extends Remote{
-    public void mensaje() throws RemoteException;
+    public String mensaje() throws RemoteException;
     
     
     
