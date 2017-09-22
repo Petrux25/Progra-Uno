@@ -20,8 +20,9 @@ public class UnoClient {
     public static void main(String[] args) {
         // TODO code application logic here
         try{
-            String name = "";
-            Registry registry = LocateRegistry.getRegistry("");
+            String name = "UNO";
+            Registry registry = LocateRegistry.getRegistry("25.7.195.205");
+            IRemote 
         }catch(Exception e){
             System.err.println("Error en el cliente ");
             e.printStackTrace();
