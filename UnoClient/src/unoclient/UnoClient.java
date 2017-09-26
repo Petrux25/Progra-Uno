@@ -22,7 +22,7 @@ public class UnoClient {
         // TODO code application logic here
         try{
             String name = "UNO";
-            Registry registry = LocateRegistry.getRegistry("192.168.100.4");
+            Registry registry = LocateRegistry.getRegistry("192.168.100.4",1099);
             IRemoteUno test = (IRemoteUno) registry.lookup(name);
             System.out.println(test.mensaje());
         }catch(Exception e){

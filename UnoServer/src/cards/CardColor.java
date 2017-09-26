@@ -11,5 +11,11 @@ package cards;
  * @author andpi
  */
 public enum CardColor {
+    BLUE,
+    GREEN,
+    YELLOW,
+    RED
+    
+    
     
 }
