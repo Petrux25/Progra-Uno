@@ -12,10 +12,15 @@ import uno_interface.IRemoteUno;
  * @author andpi
  */
 public class Card extends CardBase implements IRemoteUno{
-   public Card(String name,int value, CardType type){
-       super(name,value,type);
+    /*public Card(){
+        
+    }*/
+   public Card(String imageName,String name,int value, CardType type){
+       super(imageName,name,value,type);
        
    }
+
+    
    
 
    

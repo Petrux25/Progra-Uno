@@ -6,6 +6,7 @@
 package deck;
 
 import cards.Card;
+import cards.CardType;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -14,73 +15,121 @@ import java.util.Collections;
  * @author andpi
  */
 public class Deck {
-    private static int numberCards=19;
-    private static int specialColorCards=2;
-    private static int wildCards=4;
+    
 
+    private static final int maxColorCards = 9;
+    ArrayList<Card> fullDeck = new ArrayList<Card>();
     
-    private static int totalCards=108;
     
     
-    
-    ArrayList<Card> cards=new ArrayList<Card>();
-    String[] normalCards={"Blue","Green","Red","Yellow"};
-    String[] specialCards={"Draw2","Reverse","Skip","Wild","WildDraw4"};
-    
-   //Function to shuffle deck
-    protected void shuffleDeck(){
-        Collections.shuffle(cards);
-        Collections.shuffle(cards);
+    //////////// Constructor de la clase /////////////
+    public Deck(){
+        this.fullDeck=generateDeck();
+        
     }
     
-    //function to generate an ArrayList with the names of cards
+    ///////////////// Funcion para barajar el deck /////////////////////////
     
-    protected ArrayList<String> generateCardNamesList(){
-        
-   
-        int progression=0;
-        int contNumber=0;
-        
-        ArrayList<String> cardNamesList= new ArrayList<String>();
-        
-        //while loop to add color cards to deck
-        
-        while(progression<4){
-            
-            //for loop to add all the number cards+color
-            for(int i=0;i<=numberCards;i++){
-                if (contNumber<=9){
-                    cardNamesList.add(normalCards[progression]+contNumber);
-                    contNumber++;
-                }
-                else{
-                    contNumber=1;
-                }
-                
-            }
-            //for loop to add reverse, skip, draw2 cards+color
-            for(int j=0;j<specialColorCards;j++){
-                cardNamesList.add(normalCards[progression]+"Draw2");
-                cardNamesList.add(normalCards[progression]+"Skip");
-                cardNamesList.add(normalCards[progression]+"Reverse");
-            }
-            progression++;
-            contNumber=0;
+    public void shuffleDeck (ArrayList<Card> deckToShuffle){
+        for(int s=0;s<4;s++){
+            Collections.shuffle(deckToShuffle);
         }
         
-        //for loop to add wild and wildraw4 cards to deck
-            for(int k=0;k<=wildCards;k++){
-                cardNamesList.add("Wild");
-                cardNamesList.add("WildDraw4");
-            }
-        return cardNamesList;    
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
+    ////////////////////////////////////////////////////////  Funcion para generar nombres de carta de color //////////////////////////////////////////////////////////////
+    private ArrayList<String> generateColorCardsNames() {
+        ArrayList<String> colorArray = new ArrayList<String>();
+
+        colorArray.add("Blue");colorArray.add("BlueR");colorArray.add("BlueS");colorArray.add("BlueD");
+        colorArray.add("Red");colorArray.add("RedR");colorArray.add("RedS");colorArray.add("RedD");
+        colorArray.add("Yellow");colorArray.add("YellowR");colorArray.add("YellowS");colorArray.add("YellowD");
+        colorArray.add("Green");colorArray.add("GreenR");colorArray.add("GreenS");colorArray.add("GreenD");
+        return colorArray;
+    }
+
+    /////////////////////////////////////////////////////// Funcion para generar los nombres de cartas especiales sin color ////////////////////////////////////////////////////////////////
+    private ArrayList<String> generateSpecialCardsNames() {
+        ArrayList<String> specialArray = new ArrayList<String>();
+        specialArray.add("WildDraw4");
+        specialArray.add("Wild");
+        return specialArray;
+    }
+
+    ///////////////////////////////////////////////////  
+    protected ArrayList<Card> generateDeck() {
+        ArrayList<String> colorCardsList = new ArrayList<String>();
+        ArrayList<String> specialCardsList = new ArrayList<String>();
+        ArrayList<Card> deck= new ArrayList<Card>();
+
+        colorCardsList = generateColorCardsNames();
+        specialCardsList = generateSpecialCardsNames();
+        CardType type;
+        
+      //// loop para generar las cartas normales e introducirlas en el ArrayList deck
+        for (String index : colorCardsList) {
+
+            boolean special = true;
+            int numberOfCards = 1;
+
+            if (index.endsWith("R")) {
+                type = CardType.REVERSE;
+            } else if (index.endsWith("S")) {
+                type = CardType.SKIP;
+            } else if (index.endsWith("D")) {
+                type = CardType.DRAW2;
+            } else {
+                special = false;
+                numberOfCards = maxColorCards;
+                type = CardType.NUMBER;
+            }
+            
+            for(int a=0;a<numberOfCards;a++){
+                for(int b=0;b<2;b++){
+                    Card newCard;
+                    
+                    if(special){
+                        
+                        newCard=new Card(index+".jpg",(index+b),a,type);
+                        
+                    }else{
+                        newCard=new Card((index+a+".jpg"),(index+a),a,type);
+                        if(a==0){
+                            b=2;
+                        }
+                    }
+                    deck.add(newCard);
+                }  
+            }
+        }
+        
+        //////////// loop para generar cartas especiales
+        
+        for(String specialIndex:specialCardsList){
+            Card newCard;
+            int value;
+         
+
+            if(specialIndex.endsWith("d")){
+                type=CardType.WILD;     
+                value=20;
+            }
+            else{
+                type=CardType.WILDDRAW4;    
+                value=40;
+            }
+            for (int c=0;c<4;c++){
+                newCard=new Card(specialIndex+".jpg",(specialIndex+c),value,type);
+                deck.add(newCard);
+                
+            }
+ 
+        }
+        shuffleDeck(deck);
+        
+        return deck;
+    }
+
 }
+
+

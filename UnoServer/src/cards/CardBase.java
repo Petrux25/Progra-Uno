@@ -11,12 +11,15 @@ package cards;
  * @author andpi
  */
 public class CardBase {
+    String imageName;
     String name;
     int value;
     CardType type;
     CardColor color;
+    public CardBase(){}
     
-    public CardBase(String name, int value, CardType type){
+    public CardBase(String imageName,String name, int value, CardType type){
+        this.imageName=imageName;
         this.name=name;
         this.value=value;
         this.type=type;
