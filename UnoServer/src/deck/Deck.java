@@ -120,15 +120,10 @@ public class Deck {
             }
             for (int c=0;c<4;c++){
                 newCard=new Card(specialIndex+".jpg",(specialIndex+c),value,type);
-                deck.add(newCard);
-                
+                deck.add(newCard);    
             }
- 
         }
-        
         shuffleDeck(deck);
-        
-        
         return deck;
     }
 
