@@ -22,6 +22,7 @@ public class Card extends CardBase implements IRemoteUno{
    }
    public Card(){
        
+       
    }
 
     
