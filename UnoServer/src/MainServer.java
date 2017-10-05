@@ -21,13 +21,13 @@ public class MainServer {
     public MainServer(){
         try{
             String name="UNO";
-            //IRemoteUno interfaceUno=new Card();
-           // IRemoteUno stub=(IRemoteUno) UnicastRemoteObject.exportObject(interfaceUno,0);
+            IRemoteUno interfaceUno=new Card();
+            IRemoteUno stub=(IRemoteUno) UnicastRemoteObject.exportObject(interfaceUno,0);
             
     
             Registry registry=LocateRegistry.createRegistry(1099);
             
-           // registry.rebind(name,stub);
+            registry.rebind(name,stub);
             System.out.println("Server running");
             
             

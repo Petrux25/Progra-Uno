@@ -15,8 +15,12 @@ public class Card extends CardBase implements IRemoteUno{
     /*public Card(){
         
     }*/
+    
    public Card(String imageName,String name,int value, CardType type){
        super(imageName,name,value,type);
+       
+   }
+   public Card(){
        
    }
 

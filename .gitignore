@@ -7,3 +7,13 @@
 /UnoClient/build/
 /UnoCommon/nbproject/private/
 /UnoCommon/build/
+/UnoServer/dist/
+/UnoClient/dist/
+/RMIServer/nbproject/private/
+/RmiService/nbproject/private/
+/RmiClient/nbproject/private/
+/RmiService/build/
+/RmiService/dist/
+/RMICommon/nbproject/private/
+/RMICommon/dist/
+/RMICommon/build/

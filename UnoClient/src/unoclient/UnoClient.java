@@ -30,20 +30,19 @@ public class UnoClient extends Observable implements Observer {
      */
     public static void main(String[] args) {
         
-        ClientGUI a=new ClientGUI();
-        a.setVisible(true);
-        // TODO code application logic here
        Connect();
     }
     public static void Connect(){
          try{
             String name = "UNO";
             Registry registry = LocateRegistry.getRegistry("192.168.100.4",1099);
-            /*IRemoteUno test = (IRemoteUno) registry.lookup(name);
-            System.out.println(test.mensaje());*/
+            IRemoteUno test = (IRemoteUno) registry.lookup(name);
+            System.out.println(test.mensaje());
+            
         }catch(Exception e){
             System.err.println("Error en el cliente ");
             e.printStackTrace();
+            
         }
     }
 
