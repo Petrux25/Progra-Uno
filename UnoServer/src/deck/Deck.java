@@ -125,7 +125,9 @@ public class Deck {
             }
  
         }
+        
         shuffleDeck(deck);
+        
         
         return deck;
     }

@@ -5,3 +5,5 @@
 /UnoInterface/dist/
 /UnoServer/build/
 /UnoClient/build/
+/UnoCommon/nbproject/private/
+/UnoCommon/build/

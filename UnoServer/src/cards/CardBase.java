@@ -32,16 +32,16 @@ public class CardBase {
     private  void assignColor(String name){
        name=name.toLowerCase();
        
-      if(name.equals("blue")){
+      if(name.startsWith("B")){
           this.color=CardColor.BLUE;
       } 
-      if(name.equals("green")){
+      if(name.equals("G")){
           this.color=CardColor.GREEN;          
       }
-       if(name.equals("red")){
+       if(name.equals("R")){
              this.color=CardColor.RED;    
       }
-       if(name.equals("yellow")){
+       if(name.equals("Y")){
           this.color=CardColor.YELLOW;
       } 
    }
