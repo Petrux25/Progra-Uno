@@ -39,6 +39,8 @@ public class UnoClient extends Observable implements Observer {
             IRemoteUno test = (IRemoteUno) registry.lookup(name);
             System.out.println(test.mensaje());
             
+           // registry.lookup("holap amiguito");
+            
         }catch(Exception e){
             System.err.println("Error en el cliente ");
             e.printStackTrace();
