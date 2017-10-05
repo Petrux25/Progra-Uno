@@ -5,6 +5,7 @@
  */
 package unoclient;
 
+import gui_client.ClientGUI;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import uno_interface.IRemoteUno;
@@ -19,6 +20,9 @@ public class UnoClient {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        ClientGUI a=new ClientGUI();
+        a.setVisible(true);
         // TODO code application logic here
         try{
             String name = "UNO";
