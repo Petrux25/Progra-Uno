@@ -126,8 +126,14 @@ public class Deck {
         shuffleDeck(deck);
         return deck;
     }
+    
     public Card getCardFromDeck(){
-        return fullDeck.get(0);      
+        
+        
+        Card retCard=fullDeck.get(0);
+        fullDeck.remove(0);
+        return  retCard;
+        
     }
 
 }
