@@ -32,7 +32,8 @@ public class Card extends CardBase implements IRemoteUno{
    
     @Override
     public String mensaje() {
-        return "Hola duggo";
+        String name=this.name;
+        return name;
         
     }
     

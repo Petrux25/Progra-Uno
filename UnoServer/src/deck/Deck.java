@@ -128,14 +128,10 @@ public class Deck {
     }
     
     public Card getCardFromDeck(){
-        
-        
         Card retCard=fullDeck.get(0);
         fullDeck.remove(0);
         return  retCard;
-        
     }
-
 }
 
 

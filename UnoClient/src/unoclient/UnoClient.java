@@ -35,9 +35,13 @@ public class UnoClient extends Observable implements Observer {
     public static void Connect(){
          try{
             String name = "UNO";
-            Registry registry = LocateRegistry.getRegistry("192.168.100.8",1099);
+            
+            Registry registry = LocateRegistry.getRegistry("192.168.100.4",1099);
             IRemoteUno test = (IRemoteUno) registry.lookup(name);
+         
+            
             System.out.println(test.mensaje());
+            
        
             
         }catch(Exception e){

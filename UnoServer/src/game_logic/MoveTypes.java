@@ -13,5 +13,8 @@ public enum MoveTypes {
     PICK,
     REVERSE,
     SKIP,
+    WILD,
+    WILDDRAW
+    
     
 }
