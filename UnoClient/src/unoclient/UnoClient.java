@@ -30,6 +30,8 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
     
     private static final long serialVersionUID=1L;
     public static void main(String[] args) {
+        System.setProperty("java.security.policy","file:./java.policy");
+        
         if(System.getSecurityManager()==null){
             System.setSecurityManager(new RMISecurityManager());
             try{
