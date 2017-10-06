@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
  * @author andpi
  */
 public interface IRMIService extends Remote{
-    void addObserver(RemoteObserver o) throws RemoteException;
+    void addObserver(IRemoteObserver o) throws RemoteException;
     
     
 }
