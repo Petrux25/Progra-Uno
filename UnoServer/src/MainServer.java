@@ -111,6 +111,8 @@ public class MainServer extends Observable implements IRMIService {
     }
     
       public static void main(String[] args) {
+          System.setProperty("java.security.policy","file:./java.policy");
+          
           if(System.getSecurityManager()==null){
               System.setSecurityManager(new RMISecurityManager());
           }
