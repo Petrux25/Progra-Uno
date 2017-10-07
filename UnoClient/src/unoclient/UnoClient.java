@@ -35,7 +35,7 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
         if(System.getSecurityManager()==null){
             System.setSecurityManager(new RMISecurityManager());
             try{
-                IRMIService remoteService=(IRMIService)Naming.lookup("//localhost:9999/IRMIService");
+                IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.8:9999/IRMIService");
                 UnoClient client=new UnoClient();
                 remoteService.addObserver(client);
                 
@@ -70,5 +70,7 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
     public void update(Object observable, Object updateMsg) throws RemoteException {
         System.out.println("got message"+updateMsg); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
 
 }
