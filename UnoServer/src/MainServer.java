@@ -122,6 +122,7 @@ public class MainServer extends Observable implements IRMIService {
              
               IRMIService rmiService = (IRMIService) UnicastRemoteObject.exportObject(new MainServer(),9999);
               rmiRegistry.bind("IRMIService",rmiService);
+              System.out.println("Server running");
               
           }catch(Exception e){
               e.printStackTrace();
