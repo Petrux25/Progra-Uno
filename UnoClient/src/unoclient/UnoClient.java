@@ -45,6 +45,7 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
               IRemoteUno uno=(IRemoteUno)Naming.lookup("//192.168.100.2:9998/Uno");
               
                 System.out.println(uno.mensaje());
+               
                 
             }catch(Exception e){
                 e.printStackTrace();

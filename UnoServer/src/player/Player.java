@@ -5,11 +5,15 @@
  */
 package player;
 
+import cards.Card;
+import java.util.ArrayList;
+
 /**
  *
  * @author diesv
  */
 public class Player {
+   ArrayList<Card> hand=new ArrayList<Card>();
    String name;
    String ip;
    
@@ -35,4 +39,12 @@ public class Player {
         this.ip = ip;
     }
     
+    public void setCard(Card card){
+        hand.add(card);
+        
+    }    
+    public ArrayList<Card> getHand(){
+        return hand;
+        
+    }
 }

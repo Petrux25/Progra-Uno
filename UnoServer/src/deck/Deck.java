@@ -57,7 +57,7 @@ public class Deck {
     }
 
     ///////////////////////////////////////////////////  
-    protected ArrayList<Card> generateDeck() {
+    public ArrayList<Card> generateDeck() {
         ArrayList<String> colorCardsList = new ArrayList<String>();
         ArrayList<String> specialCardsList = new ArrayList<String>();
         ArrayList<Card> deck= new ArrayList<Card>();
