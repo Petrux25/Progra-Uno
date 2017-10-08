@@ -15,8 +15,10 @@ import java.rmi.server.UnicastRemoteObject;
 import uno_interface.IRemoteUno;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JOptionPane;
 import uno_interface.IRMIService;
 import uno_interface.IRemoteObserver;
+import javax.swing.JOptionPane;
 
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -35,6 +37,9 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
     public static void main(String[] args) {
         System.setProperty("java.security.policy","file:./java.policy");
         
+        ClientGUI gui=new ClientGUI();
+        gui.setVisible(true);
+        
         if(System.getSecurityManager()==null){
             System.setSecurityManager(new RMISecurityManager());
             try{
@@ -49,6 +54,9 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
                 
             }catch(Exception e){
                 e.printStackTrace();
+                javax.swing.JOptionPane.showMessageDialog(null,"Error al conectar, el servidor no se encuentra disponible");
+                gui.setVisible(false);
+                
                 
             }
         
