@@ -1,6 +1,6 @@
 
 import cards.Card;
-import game_logic.Moves;
+import game_logic.GameFlow;
 import java.io.Serializable;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
@@ -139,8 +139,10 @@ public class MainServer extends Observable implements IRMIService {
               ///////////////////////////////////////////////////////////////////
              Registry r =LocateRegistry.createRegistry(9998);
               
-             IRemoteUno uno=(IRemoteUno) UnicastRemoteObject.exportObject(Moves.getInstance(),9998);
+             IRemoteUno uno=(IRemoteUno) UnicastRemoteObject.exportObject(GameFlow.getInstance(),9998);
              r.bind("Uno", uno);
+             
+             
               
               
               
