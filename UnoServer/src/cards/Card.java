@@ -26,6 +26,46 @@ public class Card extends CardBase implements IRemoteUno,Serializable{
        
    }
 
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public CardType getType() {
+        return type;
+    }
+
+    public void setType(CardType type) {
+        this.type = type;
+    }
+
+    public CardColor getColor() {
+        return color;
+    }
+
+    public void setColor(CardColor color) {
+        this.color = color;
+    }
+
     
    
 

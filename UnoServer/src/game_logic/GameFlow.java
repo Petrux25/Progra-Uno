@@ -6,6 +6,8 @@
 package game_logic;
 
 import cards.Card;
+import cards.CardColor;
+import cards.CardType;
 import deck.Deck;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class GameFlow implements IRemoteUno {
     ArrayList<Card> deckList = new ArrayList<Card>();
     ArrayList<Player> players = new ArrayList<Player>();
     ArrayList<Card> playedCards = new ArrayList<Card>();
+    Card lastCard;
     
     
     boolean reverse = false;
@@ -33,6 +36,7 @@ public class GameFlow implements IRemoteUno {
     ///// //////////Singleton //////////////
     private GameFlow() {
         this.deckList = deck.generateDeck();
+        
 
     }
     ///////// Singleton ////////////////////
@@ -149,6 +153,82 @@ public class GameFlow implements IRemoteUno {
         players.get(index);
         
     }
+    /////////////////////////////////////////
+    
+    
+    
+    public void wildChangeColor(String color){
+        
+        if(color.startsWith("R")){
+            this.lastCard.setColor(CardColor.RED);
+        }
+        if(color.startsWith("G")){
+            this.lastCard.setColor(CardColor.GREEN);
+        }
+        if(color.startsWith("y")){
+            this.lastCard.setColor(CardColor.BLUE);
+        }
+        if(color.startsWith("Y")){
+            this.lastCard.setColor(CardColor.YELLOW);
+        }
+        
+    }
+
+    public Card getLastCard() {
+        return lastCard;
+    }
+
+   /* public void setLastCard(Card selectedCard,Card lastCard) {
+        
+        if(selectedCard.getColor()==lastCard.getColor() || selectedCard.getValue()==lastCard.getValue()){
+            
+            
+        }else if(selectedCard.getType()==CardType.WILD){
+            
+            
+            
+        }else if(selectedCard.getType()==CardType.WILDDRAW4){
+                
+          
+            
+            
+            
+        }
+            
+        }
+        this.lastCard = lastCard;*/
+        
+            
+    
+    
+    
+    
+    
+   /* public void flow(){
+        
+        if(lastCard==null){
+            dealFirstCards();    
+        }
+        else if (lastCard==){
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }*/
+    
     
     
     
