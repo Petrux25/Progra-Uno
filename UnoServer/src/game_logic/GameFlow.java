@@ -35,7 +35,7 @@ public class GameFlow implements IRemoteUno {
         this.deckList = deck.generateDeck();
 
     }
-
+    ///////// Singleton ////////////////////
     public static GameFlow getInstance() {
         return moves;
     }
@@ -56,6 +56,8 @@ public class GameFlow implements IRemoteUno {
         }
 
     }
+    
+    ///// Mecanismo para decir Uno //
 
     public String uno(Player player) {
         String uno = "";
@@ -66,6 +68,8 @@ public class GameFlow implements IRemoteUno {
 
         return uno;
     }
+    
+    ///// Pedir carta del deck //////////
 
     public Card drawCard(int quantity) {
         Card retuCard;
@@ -77,6 +81,8 @@ public class GameFlow implements IRemoteUno {
         
         return retuCard;
     }
+    
+    ///////////// Cambiar de turno ///////////////////
 
     public void nextTurn() {
 
@@ -97,6 +103,8 @@ public class GameFlow implements IRemoteUno {
 
         }
     }
+    
+    ///////////// skip /////////////////////
 
     public void skip() {
 
@@ -120,6 +128,9 @@ public class GameFlow implements IRemoteUno {
 
     }
     
+    
+    ///////////////// habilitar el cambio de direccion 
+    
     public void changeDir(){
         if(reverse){
             reverse=false;
@@ -127,8 +138,24 @@ public class GameFlow implements IRemoteUno {
         }else{
             reverse=true;
         }
+    }
+    
+    
+    public void setTurnTrue(int index){
+        players.get(index).setTurn(true);
+     
+    }
+    public void setTurnFalse(int index){
+        players.get(index);
         
     }
+    
+    
+    
+            
+    
+    
+  
     
     
     
