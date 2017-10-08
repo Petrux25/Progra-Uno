@@ -16,6 +16,7 @@ import uno_interface.IRemoteObserver;
 
 
 
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -83,12 +84,22 @@ public class MainServer extends Observable implements IRMIService {
      */
   
 
+    
+    
+    
     @Override
     public void addObserver(IRemoteObserver o) throws RemoteException {
         WrappedObserver mObserver =new WrappedObserver(o);
         addObserver(mObserver);
         System.out.println("Added observer"+mObserver);
     }
+    
+    
+    
+    
+    
+    
+    
     Thread thread=new Thread(){
         
         @Override
@@ -122,6 +133,18 @@ public class MainServer extends Observable implements IRMIService {
              
               IRMIService rmiService = (IRMIService) UnicastRemoteObject.exportObject(new MainServer(),9999);
               rmiRegistry.bind("IRMIService",rmiService);
+              
+              
+              ///////////////////////////////////////////////////////////////////
+              Registry r =LocateRegistry.createRegistry(9998);
+              
+             IRemoteUno uno=(IRemoteUno) UnicastRemoteObject.exportObject(new Card(),9998);
+              r.bind("Uno", uno);
+              
+              
+              
+              
+              
               System.out.println("Server running");
               
           }catch(Exception e){

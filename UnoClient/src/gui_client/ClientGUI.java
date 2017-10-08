@@ -111,7 +111,7 @@ public class ClientGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        javax.swing.JOptionPane.showInputDialog(null,"caca");
+        javax.swing.JOptionPane.showMessageDialog(null,"caca");
     }//GEN-LAST:event_button1ActionPerformed
 
     /**

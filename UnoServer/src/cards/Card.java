@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package cards;
+import java.io.Serializable;
 import uno_interface.IRemoteUno;
 
 
@@ -11,7 +12,7 @@ import uno_interface.IRemoteUno;
  *
  * @author andpi
  */
-public class Card extends CardBase implements IRemoteUno{
+public class Card extends CardBase implements IRemoteUno,Serializable{
     /*public Card(){
         
     }*/
@@ -32,8 +33,8 @@ public class Card extends CardBase implements IRemoteUno{
    
     @Override
     public String mensaje() {
-        String name=this.name;
-        return name;
+       
+        return "hola duggo";
         
     }
     
