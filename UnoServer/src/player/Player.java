@@ -16,10 +16,12 @@ public class Player {
    ArrayList<Card> hand=new ArrayList<Card>();
    String name;
    String ip;
+   Boolean turn;
    
    public Player(String name, String ip ){
        this.name=name;
        this.ip=ip;
+       this.turn=false;
        
    }
 
@@ -46,5 +48,13 @@ public class Player {
     public ArrayList<Card> getHand(){
         return hand;
         
+    }
+
+    public Boolean getTurn() {
+        return turn;
+    }
+
+    public void setTurn(Boolean turn) {
+        this.turn = turn;
     }
 }
