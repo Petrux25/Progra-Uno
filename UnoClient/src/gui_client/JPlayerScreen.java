@@ -5,6 +5,18 @@
  */
 package gui_client;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.rmi.RemoteException;
+import static java.rmi.server.RemoteServer.getClientHost;
+import java.rmi.server.ServerNotActiveException;
+import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import unoclient.UnoClient;
+
 /**
  *
  * @author andpi
@@ -81,14 +93,37 @@ public class JPlayerScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String textFromField;
-        textFromField=jTextArea1.getText();
+        String textFromField, ip = "";
+        String thisIp = "";
+        textFromField = jTextArea1.getText();
+
         System.out.println(textFromField);
+
+      
+        ///////////////////////////////////////////////////////////////////              
+
+        try {
+            thisIp = InetAddress.getLocalHost().getHostAddress();
+          
+            System.out.println("IP:" + thisIp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //////////////////////////////////////////////////////////////////////////
         
-        ClientGUI gui=new ClientGUI();
+        try {
+            
+
+            UnoClient.getUno().addPlayer(textFromField, thisIp);
+        } catch (RemoteException ex) {
+            Logger.getLogger(JPlayerScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //System.out.println(getClientHost()); // display message
+        ClientGUI gui = new ClientGUI();
         gui.setVisible(true);
         dispose();
-       
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -100,7 +135,7 @@ public class JPlayerScreen extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-       
+        ////////////////////////////
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -123,7 +158,7 @@ public class JPlayerScreen extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new JPlayerScreen().setVisible(true);
-                
+
             }
         });
     }

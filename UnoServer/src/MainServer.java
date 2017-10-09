@@ -6,6 +6,7 @@ import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import static java.rmi.server.RemoteServer.getClientHost;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Date;
@@ -123,6 +124,10 @@ public class MainServer extends Observable implements IRMIService {
 
             IRMIService rmiService = (IRMIService) UnicastRemoteObject.exportObject(new MainServer(), 9999);
             rmiRegistry.bind("IRMIService", rmiService);
+            
+            
+            
+            
             ///////////////////////////
             GameFlow prueba = GameFlow.getInstance();
             prueba.addPlayer("Julianito", "192.168.12.1251.3641");

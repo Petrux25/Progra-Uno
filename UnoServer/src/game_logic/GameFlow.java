@@ -46,7 +46,7 @@ public class GameFlow implements IRemoteUno {
 
     /////////////////////////////////////////
     @Override
-    public void addPlayer(String name, String ip) {
+    public void addPlayer(String name, String ip) throws RemoteException {
         players.add(new Player(name, ip));
     }
 
