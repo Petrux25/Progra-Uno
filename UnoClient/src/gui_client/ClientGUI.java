@@ -11,6 +11,12 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import gui_client.ColorSelection;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import unoclient.UnoClient;
@@ -219,12 +225,16 @@ public class ClientGUI extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
   
-        JButton jb=new JButton("hola amiguitos");
-        Dimension d=new Dimension(120,160);
+        JButton jb;
+        jb = new JButton(new ImageIcon(getClass().getClassLoader().getResource("resources/cards_images/Blue0.jpg")));
+        
         //jb.setPreferredSize(d);
-        jb.setBounds(20,30,50,30);
+        
+        
+        
         jPanel1.add(jb);
         jPanel1.updateUI();
+        
         
         System.out.println("hola");
         
