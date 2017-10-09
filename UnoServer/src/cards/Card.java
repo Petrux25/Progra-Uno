@@ -12,7 +12,7 @@ import uno_interface.IRemoteUno;
  *
  * @author andpi
  */
-public class Card extends CardBase implements IRemoteUno,Serializable{
+public class Card extends CardBase implements Serializable{
     /*public Card(){
         
     }*/
@@ -71,12 +71,7 @@ public class Card extends CardBase implements IRemoteUno,Serializable{
 
    
    
-    @Override
-    public String mensaje() {
-       
-        return "hola duggo";
-        
-    }
+   
     
     
 }

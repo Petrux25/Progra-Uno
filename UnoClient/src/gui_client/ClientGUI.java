@@ -13,12 +13,14 @@ import gui_client.ColorSelection;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import uno_interface.IRemoteUno;
 import unoclient.UnoClient;
 
 
@@ -30,7 +32,6 @@ public class ClientGUI extends javax.swing.JFrame {
   
         
     
-    ArrayList<JButton> btns=new ArrayList<JButton>();
 
     /**
      * Creates new form ClientGUI
@@ -224,15 +225,24 @@ public class ClientGUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-  
-        JButton jb;
-        jb = new JButton(new ImageIcon(getClass().getClassLoader().getResource("resources/cards_images/Blue0.jpg")));
+        IRemoteUno test = UnoClient.getUno();
+        ArrayList<String> hola = new ArrayList<>();
+        try {
+            hola = test.getHand();
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        //jb.setPreferredSize(d);
-        
-        
-        
-        jPanel1.add(jb);
+        String ImageName;
+        for(int i=0;i<hola.size();i++){
+            ImageName = hola.get(i);
+            JButton jb;
+            String path = "resources/cards_images/"+ImageName;
+            System.out.println(path);
+            jb = new JButton(new ImageIcon(getClass().getClassLoader().getResource(path)));
+            jPanel1.add(jb);
+        }
+       
         jPanel1.updateUI();
         
         

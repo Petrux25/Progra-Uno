@@ -134,7 +134,9 @@ public class MainServer extends Observable implements IRMIService {
              
               IRMIService rmiService = (IRMIService) UnicastRemoteObject.exportObject(new MainServer(),9999);
               rmiRegistry.bind("IRMIService",rmiService);
-              
+              ///////////////////////////
+              GameFlow prueba = GameFlow.getInstance();
+              prueba.addPlayer("Julianito", "192.168.12.1251.3641");
               
               ///////////////////////////////////////////////////////////////////
              Registry r =LocateRegistry.createRegistry(9998);

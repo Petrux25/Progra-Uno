@@ -3,6 +3,7 @@ package uno_interface;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,6 +17,8 @@ import java.rmi.RemoteException;
  */
 public interface IRemoteUno extends Remote{
     public String mensaje() throws RemoteException;
+    public ArrayList<String> getHand() throws RemoteException; 
+    
     
     
     

@@ -229,25 +229,49 @@ public class GameFlow implements IRemoteUno {
         
     }*/
     
-    
-    
-    
-            
-    
-    
-  
-    
-    
-    
-    
-    
-    
+
 
     ///////////////// este es para que no caiga 
     @Override
     public String mensaje() throws RemoteException {
         return "Singleton created";
     }
+
+    /*@Override
+    public ArrayList<String> getHand() throws RemoteException {
+       dealFirstCards();
+       Player pig = players.get(0);
+       ArrayList<String> nombreCarta = new ArrayList<>();
+       ArrayList<Card> hand = new ArrayList<>();
+       hand = pig.getHand();
+       for(int i=0; i<hand.size();i++){
+           nombreCarta.add(hand.get(i).getImageName());
+       }
+       return nombreCarta;
+       
+       
+    }*/
+
+    
+
+
+    
+    
+    @Override
+    public ArrayList<String> getHand() throws RemoteException {
+       dealFirstCards();
+       Player pig = players.get(0);
+       ArrayList<String> nombreCarta = new ArrayList<>();
+       ArrayList<Card> hand = new ArrayList<>();
+       hand = pig.getHand();
+       for(int i=0; i<hand.size();i++){
+           nombreCarta.add(hand.get(i).getImageName());
+       }
+       return nombreCarta;
+        
+    }
+    
+    
 
 
     

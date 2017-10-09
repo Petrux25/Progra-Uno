@@ -20,8 +20,7 @@ import uno_interface.IRMIService;
 import uno_interface.IRemoteObserver;
 import javax.swing.JOptionPane;
 
-import org.json.JSONObject;
-import org.json.JSONException;
+
 
 /**
  *
@@ -94,7 +93,7 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
     
 
 }
-class JsonEncodeDemo {
+/*class JsonEncodeDemo {
 
    public static JSONObject prueba()  throws JSONException{
       JSONObject obj = new JSONObject();
@@ -106,4 +105,4 @@ class JsonEncodeDemo {
 
       return obj;
    }
-}
+}*/
