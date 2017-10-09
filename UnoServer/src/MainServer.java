@@ -162,6 +162,9 @@ public class MainServer extends Observable implements IRMIService {
             else if("end".equals(command)){
                 System.exit(0);
             }
+            else if("start".equals(command)){
+                
+            }
             
         }
     }
