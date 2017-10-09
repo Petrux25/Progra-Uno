@@ -19,6 +19,11 @@ public interface IRemoteUno extends Remote{
     public String mensaje() throws RemoteException;
     public ArrayList<String> getHand() throws RemoteException; 
     public void addPlayer(String name,String ip) throws RemoteException;
+    public boolean validateLastCard(String nameComp,String playerComp) throws RemoteException;
+    
+    
+        
+    
     
     
     

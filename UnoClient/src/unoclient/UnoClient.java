@@ -62,6 +62,7 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
                 jpScreen.setVisible(false);
                 
                 
+                
             }
         
         }

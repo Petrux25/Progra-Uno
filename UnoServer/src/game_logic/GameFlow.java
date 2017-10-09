@@ -44,6 +44,8 @@ public class GameFlow implements IRemoteUno {
         return moves;
     }
 
+    
+    
     /////////////////////////////////////////
     @Override
     public void addPlayer(String name, String ip) throws RemoteException {
@@ -178,6 +180,8 @@ public class GameFlow implements IRemoteUno {
     public Card getLastCard() {
         return lastCard;
     }
+    
+    
 
    /* public void setLastCard(Card selectedCard,Card lastCard) {
         
@@ -274,6 +278,36 @@ public class GameFlow implements IRemoteUno {
 
     public  ArrayList<Player> getPlayers() {
         return players;
+    }
+
+    @Override
+    public boolean validateLastCard(String nameComp,String playerComp) throws RemoteException {
+        boolean compBool=false;
+        
+        for(int c=0;c<players.size();c++){
+            
+            
+            
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
     
