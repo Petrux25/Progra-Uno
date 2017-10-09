@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public interface IRemoteUno extends Remote{
     public String mensaje() throws RemoteException;
     public ArrayList<String> getHand() throws RemoteException; 
+    public void addPlayer(String name,String ip) throws RemoteException;
     
     
     
