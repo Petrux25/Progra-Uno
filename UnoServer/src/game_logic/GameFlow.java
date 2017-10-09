@@ -270,6 +270,11 @@ public class GameFlow implements IRemoteUno {
        return nombreCarta;
         
     }
+
+    public  ArrayList<Player> getPlayers() {
+        return players;
+    }
+    
     
     
 
