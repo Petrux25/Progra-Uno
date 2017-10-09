@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import gui_client.ColorSelection;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
@@ -29,6 +31,7 @@ import unoclient.UnoClient;
  * @author andpi
  */
 public class ClientGUI extends javax.swing.JFrame {
+    String playerName;
   
         
     
@@ -230,14 +233,38 @@ public class ClientGUI extends javax.swing.JFrame {
             Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String ImageName;
+        String imageName;
         for(int i=0;i<hola.size();i++){
-            ImageName = hola.get(i);
+            imageName = hola.get(i);
             JButton jb;
-            String path = "resources/cards_images/"+ImageName;
+            String path = "resources/cards_images/"+imageName;
+            
             System.out.println(path);
             jb = new JButton(new ImageIcon(getClass().getClassLoader().getResource(path)));
             jPanel1.add(jb);
+            StringBuilder sb=new StringBuilder(imageName);
+            int m=Math.max(0, imageName.length() - 4);
+            sb.setLength(m);
+            
+            
+            
+            final String imageName2=sb.toString();
+            
+        
+            
+            jb.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    final String a=imageName2;
+                    jPanel1.remove(0);
+                    jPanel1.revalidate();
+                    jPanel1.repaint();
+                    System.out.println(a);
+                    
+                    
+                   
+                }
+            });
         }
        
         jPanel1.updateUI();
@@ -286,9 +313,10 @@ public class ClientGUI extends javax.swing.JFrame {
                 
             }
         });
-        
-        
-        
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
     
     
