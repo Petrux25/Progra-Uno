@@ -165,7 +165,7 @@ public class GameFlow implements IRemoteUno {
         if(color.startsWith("G")){
             this.lastCard.setColor(CardColor.GREEN);
         }
-        if(color.startsWith("y")){
+        if(color.startsWith("B")){
             this.lastCard.setColor(CardColor.BLUE);
         }
         if(color.startsWith("Y")){

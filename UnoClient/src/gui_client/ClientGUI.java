@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import gui_client.ColorSelection;
+import unoclient.UnoClient;
 
 
 /**
@@ -179,6 +181,7 @@ public class ClientGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        new ColorSelection().setVisible(true);
        
         
         
