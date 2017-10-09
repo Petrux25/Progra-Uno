@@ -6,6 +6,7 @@
 package unoclient;
 
 import gui_client.ClientGUI;
+import gui_client.JPlayerScreen;
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
@@ -37,17 +38,20 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
     public static void main(String[] args) {
         System.setProperty("java.security.policy","file:./java.policy");
         
-        ClientGUI gui=new ClientGUI();
-        gui.setVisible(true);
+        
+        JPlayerScreen jpScreen=new JPlayerScreen();
+        jpScreen.setVisible(true);
+        
+      
         
         if(System.getSecurityManager()==null){
             System.setSecurityManager(new RMISecurityManager());
             try{
-                IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.8:9999/IRMIService");
+                IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.7:9999/IRMIService");
                 UnoClient client=new UnoClient();
                 remoteService.addObserver(client);
                 
-                uno=(IRemoteUno)Naming.lookup("//192.168.100.8:9998/Uno");
+                uno=(IRemoteUno)Naming.lookup("//192.168.100.7:9998/Uno");
               
                 System.out.println(uno.mensaje());
                
@@ -55,7 +59,7 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
             }catch(Exception e){
                 e.printStackTrace();
                 javax.swing.JOptionPane.showMessageDialog(null,"Error al conectar, el servidor no se encuentra disponible");
-                gui.setVisible(false);
+                jpScreen.setVisible(false);
                 
                 
             }
