@@ -225,6 +225,7 @@ public class ClientGUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        setFirstCard();
         IRemoteUno test = UnoClient.getUno();
         ArrayList<String> hola = new ArrayList<>();
         try {
@@ -249,17 +250,33 @@ public class ClientGUI extends javax.swing.JFrame {
             
             
             final String imageName2=sb.toString();
+            final String delImg=imageName;
             
         
             
             jb.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    final String a=imageName2;
-                    jPanel1.remove(0);
-                    jPanel1.revalidate();
-                    jPanel1.repaint();
-                    System.out.println(a);
+                    Boolean valid=false;
+                    final String imgName=imageName2;
+                   
+                    try {
+                        valid=UnoClient.getUno().validateLastCard(imgName,playerName);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    if (valid) {
+                        jLabel1.setIcon(new ImageIcon(getClass().getClassLoader().getResource(path)));
+                        jPanel1.remove(0);
+                        jPanel1.revalidate();
+                        jPanel1.repaint();
+                        System.out.println(imgName);
+                    }
+
+
+                    
+                    
                     
                     
                    
@@ -310,9 +327,24 @@ public class ClientGUI extends javax.swing.JFrame {
             public void run() {
                 new ClientGUI().setVisible(true);
                 
+               
+                
                 
             }
         });
+    }
+    public  void setFirstCard(){
+        
+          try {
+                    String firstCard=UnoClient.getUno().getFirstCard();
+                    firstCard="resources/cards_images/"+firstCard;
+                    jLabel1.setIcon(new ImageIcon(getClass().getClassLoader().getResource(firstCard)));
+                    
+                    
+                } catch (RemoteException ex) {
+                    Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        
     }
 
     public void setPlayerName(String playerName) {

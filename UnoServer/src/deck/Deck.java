@@ -90,7 +90,7 @@ public class Deck {
                     
                     if(special){
                         
-                        newCard=new Card(index+".jpg",(index+b),a,type);
+                        newCard=new Card(index+".jpg",(index),a,type);
                         
                     }else{
                         newCard=new Card((index+a+".jpg"),(index+a),a,type);

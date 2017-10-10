@@ -19,6 +19,7 @@ import uno_interface.IRemoteUno;
  * @author andpi
  */
 public class GameFlow implements IRemoteUno {
+    
 
     private static GameFlow moves = new GameFlow();
 
@@ -27,7 +28,7 @@ public class GameFlow implements IRemoteUno {
     ArrayList<Player> players = new ArrayList<Player>();
     ArrayList<Card> playedCards = new ArrayList<Card>();
     Card lastCard;
-    
+    //firstCard();
     
     boolean reverse = false;
 
@@ -35,9 +36,8 @@ public class GameFlow implements IRemoteUno {
 
     ///// //////////Singleton //////////////
     private GameFlow() {
+        firstCard();
         this.deckList = deck.generateDeck();
-        
-
     }
     ///////// Singleton ////////////////////
     public static GameFlow getInstance() {
@@ -54,6 +54,7 @@ public class GameFlow implements IRemoteUno {
 
     // Metodo para repartir 7 cartas a cada jugador al inicio
     public void dealFirstCards() {
+        
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             for (int k = 0; k < 7; k++) {
@@ -62,6 +63,11 @@ public class GameFlow implements IRemoteUno {
             }
         }
 
+    }
+    
+    public void firstCard(){
+        
+        lastCard=deck.getCardFromDeck();
     }
     
     ///// Mecanismo para decir Uno //
@@ -176,6 +182,8 @@ public class GameFlow implements IRemoteUno {
         }
         
     }
+    
+    
 
     public Card getLastCard() {
         return lastCard;
@@ -279,35 +287,41 @@ public class GameFlow implements IRemoteUno {
     public  ArrayList<Player> getPlayers() {
         return players;
     }
-
+//////////////////// metodo para poner ultima carta
     @Override
     public boolean validateLastCard(String nameComp,String playerComp) throws RemoteException {
         boolean compBool=false;
+        Card compCard;
         
         for(int c=0;c<players.size();c++){
-            
-            
-            
-            
-            
+            if(players.get(c).getName()==playerComp){
+                for(int d=0;d<players.get(c).getHand().size();d++){
+                    
+                    compCard=players.get(c).getHand().get(d);
+                    //Compara si la carta con el lastCard y valida si se puede jugar la card
+                    if(compCard.getName()==nameComp){
+                        if((compCard.getColor()==lastCard.getColor() )|| (compCard.getName()==lastCard.getName())||(compCard.getType()==lastCard.getType())||(compCard.getType()==CardType.WILD)||(compCard.getType()==CardType.WILDDRAW4)){
+                            
+                            compBool=true;
+                            lastCard=compCard;     
+                            break;
+                        }
+                        
+                        
+                    } 
+                }
+                break; 
+                
+            }
         }
+        return compBool;
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+    }
+
+    @Override
+    public String getFirstCard() throws RemoteException {
+      return lastCard.getImageName();
     }
     
     
