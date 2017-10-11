@@ -31,7 +31,7 @@ import unoclient.UnoClient;
  * @author andpi
  */
 public class ClientGUI extends javax.swing.JFrame {
-    String playerName;
+    static String playerName;
   
         
     
@@ -268,9 +268,15 @@ public class ClientGUI extends javax.swing.JFrame {
                     
                     if (valid) {
                         jLabel1.setIcon(new ImageIcon(getClass().getClassLoader().getResource(path)));
-                        jPanel1.remove(0);
+                        jPanel1.remove(jb);
                         jPanel1.revalidate();
                         jPanel1.repaint();
+                        System.out.println(imgName);
+                        
+                    }
+                    
+                    else{
+                        System.out.println("nope");
                         System.out.println(imgName);
                     }
 
@@ -347,8 +353,9 @@ public class ClientGUI extends javax.swing.JFrame {
         
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+    public static void setPlayerName(String player) {
+        playerName = player;
+        System.out.println("playerName");
     }
     
     

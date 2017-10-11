@@ -47,11 +47,11 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
         if(System.getSecurityManager()==null){
             System.setSecurityManager(new RMISecurityManager());
             try{
-                IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.7:9999/IRMIService");
+                IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.2:9999/IRMIService");
                 UnoClient client=new UnoClient();
                 remoteService.addObserver(client);
                 
-                uno=(IRemoteUno)Naming.lookup("//192.168.100.7:9998/Uno");
+                uno=(IRemoteUno)Naming.lookup("//192.168.100.2:9998/Uno");
               
                 System.out.println(uno.mensaje());
                

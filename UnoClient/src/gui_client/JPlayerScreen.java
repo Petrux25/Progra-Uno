@@ -16,6 +16,7 @@ import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import unoclient.UnoClient;
+import gui_client.ClientGUI;
 
 /**
  *
@@ -96,6 +97,9 @@ public class JPlayerScreen extends javax.swing.JFrame {
         String textFromField, ip = "";
         String thisIp = "";
         textFromField = jTextArea1.getText();
+        ClientGUI.setPlayerName(textFromField);
+        
+      
 
         System.out.println(textFromField);
 
@@ -112,6 +116,7 @@ public class JPlayerScreen extends javax.swing.JFrame {
         //////////////////////////////////////////////////////////////////////////
         
         try {
+            
             
 
             UnoClient.getUno().addPlayer(textFromField, thisIp);

@@ -292,16 +292,29 @@ public class GameFlow implements IRemoteUno {
     public boolean validateLastCard(String nameComp,String playerComp) throws RemoteException {
         boolean compBool=false;
         Card compCard;
+        System.out.println(compBool);
         
         for(int c=0;c<players.size();c++){
-            if(players.get(c).getName()==playerComp){
-                for(int d=0;d<players.get(c).getHand().size();d++){
+                System.out.println(players.get(c).getName());
+                System.out.println(playerComp);
+                System.out.println("-------------------------------------------");
+            
+            if(players.get(c).getName().equals(playerComp)){
+                
+                
+                for(int d=0;d<(players.get(c).getHand().size());d++){
                     
                     compCard=players.get(c).getHand().get(d);
+                    System.out.println(compCard.getName());
+                    System.out.println(nameComp);
+                    System.out.println("--------------------|||||||||||-----------------------");
+                    
+                    
                     //Compara si la carta con el lastCard y valida si se puede jugar la card
-                    if(compCard.getName()==nameComp){
-                        if((compCard.getColor()==lastCard.getColor() )|| (compCard.getName()==lastCard.getName())||(compCard.getType()==lastCard.getType())||(compCard.getType()==CardType.WILD)||(compCard.getType()==CardType.WILDDRAW4)){
-                            
+                    if(compCard.getName().equals(nameComp)){
+                        System.out.println("skrt");
+                        if((compCard.getColor()==lastCard.getColor())|| (compCard.getName().equals(lastCard.getName()))||(compCard.getType()==lastCard.getType())||(compCard.getType().equals(CardType.WILD))||(compCard.getType()==CardType.WILDDRAW4)){
+                            System.out.println("true");
                             compBool=true;
                             lastCard=compCard;     
                             break;
@@ -313,8 +326,10 @@ public class GameFlow implements IRemoteUno {
                 break; 
                 
             }
+           
         }
         return compBool;
+        
         
 
     }
