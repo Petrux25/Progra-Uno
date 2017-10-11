@@ -291,7 +291,6 @@ public class GameFlow implements IRemoteUno {
     @Override
     public boolean validateLastCard(String nameComp,String playerComp) throws RemoteException {
         boolean compBool=false;
-        Card compCard;
         System.out.println(compBool);
         
         for(int c=0;c<players.size();c++){
@@ -300,29 +299,13 @@ public class GameFlow implements IRemoteUno {
                 System.out.println("-------------------------------------------");
             
             if(players.get(c).getName().equals(playerComp)){
-                
-                
-                for(int d=0;d<(players.get(c).getHand().size());d++){
+                if(validateCard(c,nameComp)){
                     
-                    compCard=players.get(c).getHand().get(d);
-                    System.out.println(compCard.getName());
-                    System.out.println(nameComp);
-                    System.out.println("--------------------|||||||||||-----------------------");
-                    
-                    
-                    //Compara si la carta con el lastCard y valida si se puede jugar la card
-                    if(compCard.getName().equals(nameComp)){
-                        System.out.println("skrt");
-                        if((compCard.getColor()==lastCard.getColor())|| (compCard.getName().equals(lastCard.getName()))||(compCard.getType()==lastCard.getType())||(compCard.getType().equals(CardType.WILD))||(compCard.getType()==CardType.WILDDRAW4)){
-                            System.out.println("true");
-                            compBool=true;
-                            lastCard=compCard;     
-                            break;
-                        }
-                        
-                        
-                    } 
+                    compBool = true;
+                    break; 
                 }
+                
+            
                 break; 
                 
             }
@@ -332,6 +315,37 @@ public class GameFlow implements IRemoteUno {
         
         
 
+    }
+    
+    public boolean validateCard(int c, String cardNameComp){
+        Card compCard;
+        boolean compBool = false;
+        for(int d=0;d<(players.get(c).getHand().size());d++){
+                    compCard=players.get(c).getHand().get(d);
+                    System.out.println(compCard.getName());
+                    System.out.println(cardNameComp);
+                    System.out.println("--------------------|||||||||||-----------------------");
+                    
+                    
+                    //Compara si la carta con el lastCard y valida si se puede jugar la card
+                    if(compCard.getName().equals(cardNameComp)){
+                        System.out.println("skrt");
+                        if((compCard.getColor()==lastCard.getColor())||
+                                (compCard.getName().equals(lastCard.getName()))||
+                                (compCard.getType()==lastCard.getType())||
+                                (compCard.getType().equals(CardType.WILD))||
+                                (compCard.getType()==CardType.WILDDRAW4)){
+                            System.out.println("true");
+                            lastCard=compCard;
+                            compBool = true;
+                            break;
+                        }
+                        
+                        
+                    } 
+                }
+        
+        return compBool;
     }
 
     @Override
