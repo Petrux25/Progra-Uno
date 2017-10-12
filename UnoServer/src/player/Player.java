@@ -42,7 +42,7 @@ public class Player {
     }
     
     public void setCard(Card card){
-        hand.add(card);
+        hand.add(0,card);
         
     }    
     public ArrayList<Card> getHand(){

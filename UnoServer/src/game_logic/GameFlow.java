@@ -337,8 +337,22 @@ public class GameFlow implements IRemoteUno {
     }
 
     @Override
-    public String dealCardForPlayer() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String dealCardForPlayer(String playerName) throws RemoteException {
+        String cardRet="";
+        if(deckList.size()==0){
+            deckList=deck.generateDeck();
+            
+        }
+        for(int pb=0;pb<players.size();pb++){
+            if(players.get(pb).getName().equals(playerName)){
+                Card reqCard=deckList.get(0);
+                deckList.remove(0);
+                players.get(pb).setCard(reqCard);
+                cardRet=reqCard.getImageName();
+
+            }    
+        }
+        return cardRet;
     }
 
 }
