@@ -155,8 +155,8 @@ public class GameFlow implements IRemoteUno {
 
     }
     /////////////////////////////////////////
-
-    public void wildChangeColor(String color) {
+    @Override
+    public void wildChangeColor(String color) throws RemoteException {
 
         if (color.startsWith("R")) {
             this.lastCard.setColor("Red");

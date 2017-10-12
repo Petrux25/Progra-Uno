@@ -22,6 +22,8 @@ public interface IRemoteUno extends Remote{
     public boolean validateLastCard(String nameComp,String playerComp) throws RemoteException;
     public String getFirstCard()throws RemoteException;
     public String dealCardForPlayer()throws RemoteException;
+    public void wildChangeColor(String color) throws RemoteException;
+     
  
         
     
