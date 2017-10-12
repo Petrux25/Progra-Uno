@@ -6,8 +6,8 @@
 package game_logic;
 
 import cards.Card;
-import cards.CardColor;
-import cards.CardType;
+
+
 import deck.Deck;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
