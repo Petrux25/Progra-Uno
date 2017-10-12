@@ -166,8 +166,6 @@ public class ColorSelection extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             UnoClient.getUno().wildChangeColor("R");
-            UnoClient.getUno().setChanged();
-            notifyObservers("Se ha cambiado el color a Rojo");
             dispose();
         } catch (RemoteException ex) {
             Logger.getLogger(ColorSelection.class.getName()).log(Level.SEVERE, null, ex);

@@ -88,6 +88,7 @@ public class MainServer extends Observable implements IRMIService {
     public void addObserver(IRemoteObserver o) throws RemoteException {
         WrappedObserver mObserver = new WrappedObserver(o);
         addObserver(mObserver);
+        
         System.out.println("Added observer" + mObserver);
     }
 
@@ -168,6 +169,7 @@ public class MainServer extends Observable implements IRMIService {
                 }
             }
             else if("end".equals(command)){
+                
                 System.exit(0);
             }
             else if("start".equals(command)){
@@ -177,6 +179,10 @@ public class MainServer extends Observable implements IRMIService {
             }      
             
         }
+    }
+    public void Notificacion(String message){
+        setChanged();
+        notifyObservers("n"+message);
     }
     
 
