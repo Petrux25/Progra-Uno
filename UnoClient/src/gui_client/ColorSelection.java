@@ -5,6 +5,9 @@
  */
 package gui_client;
 import gui_client.ClientGUI;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import unoclient.UnoClient;
 
@@ -86,6 +89,11 @@ public class ColorSelection extends javax.swing.JFrame {
         jBYelllow.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/color_pick/amarillo0.png"))); // NOI18N
         jBYelllow.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jBYelllow.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBYelllow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBYelllowActionPerformed(evt);
+            }
+        });
 
         jBBlue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/color_pick/azul1.png"))); // NOI18N
         jBBlue.setText("Azul");
@@ -155,26 +163,53 @@ public class ColorSelection extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRedActionPerformed
-        // TODO add your handling code here:
-       try{
-           JOptionPane.showMessageDialog(null,UnoClient.getUno().mensaje());
-       }catch(Exception e){
-           
-           
-       }
+        try {
+            // TODO add your handling code here:
+            UnoClient.getUno().wildChangeColor("R");
+            UnoClient.getUno().setChanged();
+            notifyObservers("Se ha cambiado el color a Rojo");
+            dispose();
+        } catch (RemoteException ex) {
+            Logger.getLogger(ColorSelection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jBRedActionPerformed
 
     private void jBBlueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBlueActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            UnoClient.getUno().wildChangeColor("B");
+            dispose();
+        } catch (RemoteException ex) {
+            Logger.getLogger(ColorSelection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jBBlueActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jBGreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGreenActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            UnoClient.getUno().wildChangeColor("G");
+            dispose();
+        } catch (RemoteException ex) {
+            Logger.getLogger(ColorSelection.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jBGreenActionPerformed
+
+    private void jBYelllowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBYelllowActionPerformed
+        try {
+            // TODO add your handling code here:
+            UnoClient.getUno().wildChangeColor("Y");
+            dispose();
+        } catch (RemoteException ex) {
+            Logger.getLogger(ColorSelection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jBYelllowActionPerformed
 
     /**
      * @param args the command line arguments

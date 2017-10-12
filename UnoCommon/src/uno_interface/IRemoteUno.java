@@ -23,6 +23,7 @@ public interface IRemoteUno extends Remote{
     public String getFirstCard()throws RemoteException;
     public String dealCardForPlayer()throws RemoteException;
     public void wildChangeColor(String color) throws RemoteException;
+    public void notifyColor(String color) throws RemoteException;
      
  
         
