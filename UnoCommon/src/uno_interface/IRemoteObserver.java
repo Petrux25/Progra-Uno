@@ -12,5 +12,5 @@ import java.rmi.RemoteException;
  */
 public interface IRemoteObserver extends Remote {
     void update(Object observable, Object updateMsg) throws RemoteException;
-    
+
 }

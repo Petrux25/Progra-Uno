@@ -93,7 +93,6 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
     public static IRemoteUno getUno(){
         return uno;
     }
-
     
 
 }

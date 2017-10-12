@@ -129,13 +129,14 @@ public class MainServer extends Observable implements IRMIService {
             
             
             ///////////////////////////
-            GameFlow prueba = GameFlow.getInstance();
+            GameFlow sendGame = GameFlow.getInstance();
            // prueba.addPlayer("Julianito", "192.168.12.1251.3641");
 
             ///////////////////////////////////////////////////////////////////
             Registry r = LocateRegistry.createRegistry(9998);
+            
 
-            IRemoteUno uno = (IRemoteUno) UnicastRemoteObject.exportObject(GameFlow.getInstance(), 9998);
+            IRemoteUno uno = (IRemoteUno) UnicastRemoteObject.exportObject(sendGame, 9998);
             r.bind("Uno", uno);
 
             System.out.println("Server running");
@@ -168,8 +169,10 @@ public class MainServer extends Observable implements IRMIService {
                 System.exit(0);
             }
             else if("start".equals(command)){
-                
-            }
+               GameFlow gFlow=GameFlow.getInstance();
+               gFlow.dealFirstCards();
+               System.out.println("Game started");
+            }      
             
         }
     }

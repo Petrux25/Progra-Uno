@@ -17,10 +17,12 @@ import java.util.ArrayList;
  */
 public interface IRemoteUno extends Remote{
     public String mensaje() throws RemoteException;
-    public ArrayList<String> getHand() throws RemoteException; 
+    public ArrayList<String> getHand(String playerName) throws RemoteException; 
     public void addPlayer(String name,String ip) throws RemoteException;
     public boolean validateLastCard(String nameComp,String playerComp) throws RemoteException;
     public String getFirstCard()throws RemoteException;
+    public String dealCardForPlayer()throws RemoteException;
+ 
         
     
     

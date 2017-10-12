@@ -229,7 +229,7 @@ public class ClientGUI extends javax.swing.JFrame {
         IRemoteUno test = UnoClient.getUno();
         ArrayList<String> hola = new ArrayList<>();
         try {
-            hola = test.getHand();
+            hola = test.getHand(playerName);
         } catch (RemoteException ex) {
             Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -257,6 +257,7 @@ public class ClientGUI extends javax.swing.JFrame {
             jb.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    System.out.println(playerName);
                     Boolean valid=false;
                     final String imgName=imageName2;
                    
@@ -332,6 +333,8 @@ public class ClientGUI extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ClientGUI().setVisible(true);
+                
+               
                 
                
                 
