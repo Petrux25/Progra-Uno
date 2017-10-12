@@ -130,7 +130,7 @@ public class MainServer extends Observable implements IRMIService {
             
             ///////////////////////////
             GameFlow prueba = GameFlow.getInstance();
-            //prueba.addPlayer("Julianito", "192.168.12.1251.3641");
+           // prueba.addPlayer("Julianito", "192.168.12.1251.3641");
 
             ///////////////////////////////////////////////////////////////////
             Registry r = LocateRegistry.createRegistry(9998);

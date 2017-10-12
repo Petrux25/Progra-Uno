@@ -17,7 +17,7 @@ public class Card extends CardBase implements Serializable{
         
     }*/
     
-   public Card(String imageName,String name,int value, CardType type){
+   public Card(String imageName,String name,int value, String type){
        super(imageName,name,value,type);
        
    }
@@ -50,19 +50,19 @@ public class Card extends CardBase implements Serializable{
         this.value = value;
     }
 
-    public CardType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(CardType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public CardColor getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(CardColor color) {
+    public void setColor(String color) {
         this.color = color;
     }
 

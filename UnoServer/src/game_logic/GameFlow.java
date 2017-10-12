@@ -19,7 +19,6 @@ import uno_interface.IRemoteUno;
  * @author andpi
  */
 public class GameFlow implements IRemoteUno {
-    
 
     private static GameFlow moves = new GameFlow();
 
@@ -29,7 +28,7 @@ public class GameFlow implements IRemoteUno {
     ArrayList<Card> playedCards = new ArrayList<Card>();
     Card lastCard;
     //firstCard();
-    
+
     boolean reverse = false;
 
     int turno;
@@ -39,13 +38,12 @@ public class GameFlow implements IRemoteUno {
         firstCard();
         this.deckList = deck.generateDeck();
     }
+
     ///////// Singleton ////////////////////
     public static GameFlow getInstance() {
         return moves;
     }
 
-    
-    
     /////////////////////////////////////////
     @Override
     public void addPlayer(String name, String ip) throws RemoteException {
@@ -54,7 +52,7 @@ public class GameFlow implements IRemoteUno {
 
     // Metodo para repartir 7 cartas a cada jugador al inicio
     public void dealFirstCards() {
-        
+
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             for (int k = 0; k < 7; k++) {
@@ -64,14 +62,13 @@ public class GameFlow implements IRemoteUno {
         }
 
     }
-    
-    public void firstCard(){
-        
-        lastCard=deck.getCardFromDeck();
-    }
-    
-    ///// Mecanismo para decir Uno //
 
+    public void firstCard() {
+
+        lastCard = deck.getCardFromDeck();
+    }
+
+    ///// Mecanismo para decir Uno //
     public String uno(Player player) {
         String uno = "";
 
@@ -81,9 +78,8 @@ public class GameFlow implements IRemoteUno {
 
         return uno;
     }
-    
-    ///// Pedir carta del deck //////////
 
+    ///// Pedir carta del deck //////////
     public Card drawCard(int quantity) {
         Card retuCard;
         if (deckList.size() == 0) {
@@ -91,12 +87,11 @@ public class GameFlow implements IRemoteUno {
         }
         retuCard = deckList.get(0);
         deckList.remove(0);
-        
+
         return retuCard;
     }
-    
-    ///////////// Cambiar de turno ///////////////////
 
+    ///////////// Cambiar de turno ///////////////////
     public void nextTurn() {
 
         if (reverse) {
@@ -116,9 +111,8 @@ public class GameFlow implements IRemoteUno {
 
         }
     }
-    
-    ///////////// skip /////////////////////
 
+    ///////////// skip /////////////////////
     public void skip() {
 
         if (reverse) {
@@ -140,58 +134,50 @@ public class GameFlow implements IRemoteUno {
         }
 
     }
-    
-    
+
     ///////////////// habilitar el cambio de direccion 
-    
-    public void changeDir(){
-        if(reverse){
-            reverse=false;
-            
-        }else{
-            reverse=true;
+    public void changeDir() {
+        if (reverse) {
+            reverse = false;
+
+        } else {
+            reverse = true;
         }
     }
-    
-    
-    public void setTurnTrue(int index){
+
+    public void setTurnTrue(int index) {
         players.get(index).setTurn(true);
-     
+
     }
-    public void setTurnFalse(int index){
+
+    public void setTurnFalse(int index) {
         players.get(index);
-        
+
     }
     /////////////////////////////////////////
-    
-    
-    
-    public void wildChangeColor(String color){
-        
-        if(color.startsWith("R")){
-            this.lastCard.setColor(CardColor.RED);
+
+    public void wildChangeColor(String color) {
+
+        if (color.startsWith("R")) {
+            this.lastCard.setColor("Red");
         }
-        if(color.startsWith("G")){
-            this.lastCard.setColor(CardColor.GREEN);
+        if (color.startsWith("G")) {
+            this.lastCard.setColor("Green");
         }
-        if(color.startsWith("B")){
-            this.lastCard.setColor(CardColor.BLUE);
+        if (color.startsWith("B")) {
+            this.lastCard.setColor("Blue");
         }
-        if(color.startsWith("Y")){
-            this.lastCard.setColor(CardColor.YELLOW);
+        if (color.startsWith("Y")) {
+            this.lastCard.setColor("Yellow");
         }
-        
+
     }
-    
-    
 
     public Card getLastCard() {
         return lastCard;
     }
-    
-    
 
-   /* public void setLastCard(Card selectedCard,Card lastCard) {
+    /* public void setLastCard(Card selectedCard,Card lastCard) {
         
         if(selectedCard.getColor()==lastCard.getColor() || selectedCard.getValue()==lastCard.getValue()){
             
@@ -210,14 +196,7 @@ public class GameFlow implements IRemoteUno {
             
         }
         this.lastCard = lastCard;*/
-        
-            
-    
-    
-    
-    
-    
-   /* public void flow(){
+ /* public void flow(){
         
         if(lastCard==null){
             dealFirstCards();    
@@ -241,9 +220,6 @@ public class GameFlow implements IRemoteUno {
         
         
     }*/
-    
-
-
     ///////////////// este es para que no caiga 
     @Override
     public String mensaje() throws RemoteException {
@@ -264,116 +240,91 @@ public class GameFlow implements IRemoteUno {
        
        
     }*/
-
-    
-
-
-    
-    
     @Override
     public ArrayList<String> getHand() throws RemoteException {
-       dealFirstCards();
-       Player pig = players.get(0);
-       ArrayList<String> nombreCarta = new ArrayList<>();
-       ArrayList<Card> hand = new ArrayList<>();
-       hand = pig.getHand();
-       for(int i=0; i<hand.size();i++){
-           nombreCarta.add(hand.get(i).getImageName());
-       }
-       return nombreCarta;
-        
+        dealFirstCards();
+        Player pig = players.get(0);
+        ArrayList<String> nombreCarta = new ArrayList<>();
+        ArrayList<Card> hand = new ArrayList<>();
+        hand = pig.getHand();
+        for (int i = 0; i < hand.size(); i++) {
+            nombreCarta.add(hand.get(i).getImageName());
+        }
+        return nombreCarta;
+
     }
 
-    public  ArrayList<Player> getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return players;
     }
 //////////////////// metodo para poner ultima carta
+
     @Override
-    public boolean validateLastCard(String nameComp,String playerComp) throws RemoteException {
-        boolean compBool=false;
+    public boolean validateLastCard(String nameComp, String playerComp) throws RemoteException {
+        boolean compBool = false;
         System.out.println(compBool);
-        
-        for(int c=0;c<players.size();c++){
-                System.out.println(players.get(c).getName());
-                System.out.println(playerComp);
-                System.out.println("-------------------------------------------");
-            
-            if(players.get(c).getName().equals(playerComp)){
-                if(validateCard(c,nameComp)){
-                    
+
+        for (int c = 0; c < players.size(); c++) {
+            System.out.println(players.get(c).getName());
+            System.out.println(playerComp);
+            System.out.println("-------------------------------------------");
+
+            if (players.get(c).getName().equals(playerComp)) {
+                if (validateCard(c, nameComp)) {
+
                     compBool = true;
-                    break; 
+                    break;
                 }
-                
-            
-                break; 
-                
+
+                break;
+
             }
-           
+
         }
         return compBool;
-        
-        
 
     }
-    
-    public boolean validateCard(int c, String cardNameComp){
+
+    public boolean validateCard(int c, String cardNameComp) {
         Card compCard;
         boolean compBool = false;
-        for(int d=0;d<(players.get(c).getHand().size());d++){
-                    compCard=players.get(c).getHand().get(d);
-                    System.out.println(compCard.getName());
-                    System.out.println(cardNameComp);
-                    System.out.println("--------------------|||||||||||-----------------------");
+        for (int d = 0; d < (players.get(c).getHand().size()); d++) {
+            compCard = players.get(c).getHand().get(d);
+
+            //Compara si la carta con el lastCard y valida si se puede jugar la card
+            if (compCard.getName().equals(cardNameComp)) {
+                System.out.println("--------------------\\\\\\\\\\-----------------------");
+                System.out.println(compCard.getColor());
+                System.out.println(lastCard.getColor());
+                System.out.println("--------------------|||||||||||-----------------------");
+
+                System.out.println("skrt");
+                char compChar=compCard.getName().charAt(compCard.getName().length()-1);
+                
+                char lastChar=lastCard.getName().charAt(lastCard.getName().length()-1);
+
+                if ((compCard.getType().equals("Wild")) || (compCard.getType().equals("WildDraw4"))) {
+                    lastCard = compCard;
+                    compBool = true;
+                    break;
                     
                     
-                    //Compara si la carta con el lastCard y valida si se puede jugar la card
-                    if(compCard.getName().equals(cardNameComp)){
-                        System.out.println("skrt");
-                        if((compCard.getColor()==lastCard.getColor())||
-                                (compCard.getName().equals(lastCard.getName()))||
-                                (compCard.getType()==lastCard.getType())||
-                                (compCard.getType().equals(CardType.WILD))||
-                                (compCard.getType()==CardType.WILDDRAW4)){
-                            System.out.println("true");
-                            lastCard=compCard;
-                            compBool = true;
-                            break;
-                        }
-                        
-                        
-                    } 
+                    
+                } else if ((compCard.getColor().equals(lastCard.getColor())) || (compChar==lastChar)) {
+                    lastCard = compCard;
+                    compBool = true;
+                    break;
                 }
-        
+
+            }
+        }
+
         return compBool;
     }
 
     @Override
     public String getFirstCard() throws RemoteException {
-      return lastCard.getImageName();
+        return lastCard.getImageName();
     }
-    
-    
-    
 
-
-    
-   
-            
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

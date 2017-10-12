@@ -352,6 +352,8 @@ public class ClientGUI extends javax.swing.JFrame {
                 }
         
     }
+    
+    
 
     public static void setPlayerName(String player) {
         playerName = player;

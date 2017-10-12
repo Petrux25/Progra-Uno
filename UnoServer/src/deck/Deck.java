@@ -64,7 +64,7 @@ public class Deck {
 
         colorCardsList = generateColorCardsNames();
         specialCardsList = generateSpecialCardsNames();
-        CardType type;
+        String type;
         
       //// loop para generar las cartas normales e introducirlas en el ArrayList deck
         for (String index : colorCardsList) {
@@ -73,15 +73,15 @@ public class Deck {
             int numberOfCards = 1;
 
             if (index.endsWith("R")) {
-                type = CardType.REVERSE;
+                type = "Reverse";
             } else if (index.endsWith("S")) {
-                type = CardType.SKIP;
+                type = "Skip";
             } else if (index.endsWith("D")) {
-                type = CardType.DRAW2;
+                type = "Draw2";
             } else {
                 special = false;
                 numberOfCards = maxColorCards;
-                type = CardType.NUMBER;
+                type = "Number";
             }
             
             for(int a=0;a<numberOfCards;a++){
@@ -111,15 +111,15 @@ public class Deck {
          
 
             if(specialIndex.endsWith("d")){
-                type=CardType.WILD;     
+                type="Wild";     
                 value=20;
             }
             else{
-                type=CardType.WILDDRAW4;    
+                type="WildDraw4";    
                 value=40;
             }
             for (int c=0;c<4;c++){
-                newCard=new Card(specialIndex+".jpg",(specialIndex+c),value,type);
+                newCard=new Card(specialIndex+".jpg",(specialIndex),value,type);
                 deck.add(newCard);    
             }
         }
