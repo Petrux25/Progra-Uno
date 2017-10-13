@@ -13,7 +13,9 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import player.Player;
 import uno_interface.IRemoteUno;
-import 
+import main_class.MainServer;
+import main_class.MainServer.Notificacion;
+
 
 /**
  *
@@ -128,6 +130,8 @@ public class GameFlow implements IRemoteUno {
 
             if ((turno >= 0) && (turno < (players.size() - 1))) {
                 turno += 2;
+                
+           
 
             } else if (turno == (players.size() - 1)) {
                 turno = 1;
@@ -164,6 +168,7 @@ public class GameFlow implements IRemoteUno {
         }
         if (color.startsWith("G")) {
             this.lastCard.setColor("Green");
+            
         }
         if (color.startsWith("B")) {
             this.lastCard.setColor("Blue");
@@ -310,11 +315,8 @@ public class GameFlow implements IRemoteUno {
                 char lastChar=lastCard.getName().charAt(lastCard.getName().length()-1);
 
                 if ((compCard.getType().equals("Wild")) || (compCard.getType().equals("WildDraw4"))) {
-                    
-                    if(lastCard.getType().equals("Wild")||lastCard.equals("W")){
-                        
-                    }
                     lastCard = compCard;
+                    players.get(c).getHand().remove(compCard);
                     compBool = true;
                     break;
                     
@@ -322,6 +324,7 @@ public class GameFlow implements IRemoteUno {
                     
                 } else if ((compCard.getColor().equals(lastCard.getColor())) || (compChar==lastChar)) {
                     lastCard = compCard;
+                    players.get(c).getHand().remove(compCard);
                     compBool = true;
                     break;
                 }
@@ -340,6 +343,7 @@ public class GameFlow implements IRemoteUno {
     @Override
     public String dealCardForPlayer(String playerName) throws RemoteException {
         String cardRet="";
+        System.out.println(playerName+" ªªªªªªªªªªªªªªªªªªªªªªª");
         if(deckList.size()==0){
             deckList=deck.generateDeck();
             
@@ -354,6 +358,16 @@ public class GameFlow implements IRemoteUno {
             }    
         }
         return cardRet;
+    }
+
+    @Override
+    public void notifyColor(String color) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public void Notify(String message){
+        MainServer noti = new MainServer();
+        Notificacion ficacion= noti.new Notificacion();
+        ficacion.sendNotifi(message);
     }
 
 }

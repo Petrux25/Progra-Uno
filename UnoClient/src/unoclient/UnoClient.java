@@ -6,6 +6,7 @@
 package unoclient;
 
 import gui_client.ClientGUI;
+
 import gui_client.JPlayerScreen;
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
@@ -16,6 +17,8 @@ import java.rmi.server.UnicastRemoteObject;
 import uno_interface.IRemoteUno;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import uno_interface.IRMIService;
 import uno_interface.IRemoteObserver;
@@ -88,7 +91,11 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
 
     @Override
     public void update(Object observable, Object updateMsg) throws RemoteException {
-        System.out.println("got message"+updateMsg); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("HOLA "+updateMsg);
+        ClientGUI client = ClientGUI.getInstance();
+        client.setFirstCard();
+        client.updateDeckView();
+        
     }
     public static IRemoteUno getUno(){
         return uno;

@@ -125,7 +125,7 @@ public class JPlayerScreen extends javax.swing.JFrame {
         }
 
         //System.out.println(getClientHost()); // display message
-        ClientGUI gui = new ClientGUI();
+        ClientGUI gui = ClientGUI.getInstance();
         gui.setVisible(true);
         dispose();
 

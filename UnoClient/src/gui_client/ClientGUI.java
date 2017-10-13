@@ -32,6 +32,12 @@ import unoclient.UnoClient;
  */
 public class ClientGUI extends javax.swing.JFrame {
     static String playerName;
+    static ClientGUI cliente = new ClientGUI();
+    
+    public static ClientGUI getInstance() {
+        return cliente;
+    }
+    
   
         
     
@@ -39,7 +45,7 @@ public class ClientGUI extends javax.swing.JFrame {
     /**
      * Creates new form ClientGUI
      */
-    public ClientGUI() {
+    private ClientGUI() {
         initComponents();
     }
 
@@ -356,6 +362,10 @@ public class ClientGUI extends javax.swing.JFrame {
             }
         });
     }
+    
+        
+                
+    
     public void setFirstCard(){
         
           try {

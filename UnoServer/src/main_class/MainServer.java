@@ -98,7 +98,7 @@ public class MainServer extends Observable implements IRMIService {
         public void run() {
             while (true) {
                 try {
-                    Thread.sleep(5 * 1000);
+                    Thread.sleep(1000);
                 } catch (Exception e) {
                     //
 
@@ -180,10 +180,24 @@ public class MainServer extends Observable implements IRMIService {
             
         }
     }
-    public void Notificacion(String message){
-        setChanged();
-        notifyObservers("n"+message);
-    }
+   
+        public  class Notificacion extends Observable{
+        Notificacion noti = new Notificacion();
+        public  Notificacion getInstance() {
+            return noti;
+        }
+        public void sendNotifi(String message){
+            setChanged();
+            notifyObservers("n"+message);
+    
+        }
+        public Notificacion(){
+            
+        }
+    }    
+    
+    
+    
     
 
 }
