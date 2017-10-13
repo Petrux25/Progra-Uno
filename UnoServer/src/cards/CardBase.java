@@ -14,37 +14,34 @@ public class CardBase {
     String imageName;
     String name;
     int value;
-    String type;
-    String color;
+    ECardType type;
+    ECardColor color;
     public CardBase(){}
     
-    public CardBase(String imageName,String name, int value, String type){
+    public CardBase(String imageName,String name, int value, ECardType type){
         this.imageName=imageName;
         this.name=name;
         this.value=value;
         this.type=type;
         assignColor(name);    
-    }
-    
-    
+    }  
     //Function to assign the color of the cards, using Enum values.
     
     private  void assignColor(String name){
-     
-       
       if(name.startsWith("B")){
-          this.color="Blue";
+          this.color=ECardColor.BLUE;
       } 
       if(name.startsWith("G")){
-          this.color="Green";         
+          this.color=ECardColor.GREEN;         
       }
        if(name.startsWith("R")){
-             this.color="Red";    
+             this.color=ECardColor.RED;    
       }
        if(name.startsWith("Y")){
-          this.color="Yellow";
+          this.color=ECardColor.YELLOW;
       } 
+       if(name.startsWith("W")){
+           this.color=ECardColor.BLACK;
+       }
    }
-    
-    
 }

@@ -6,6 +6,7 @@
 package deck;
 
 import cards.Card;
+import cards.ECardType;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -63,24 +64,23 @@ public class Deck {
 
         colorCardsList = generateColorCardsNames();
         specialCardsList = generateSpecialCardsNames();
-        String type;
+        ECardType type;
         
       //// loop para generar las cartas normales e introducirlas en el ArrayList deck
         for (String index : colorCardsList) {
-
             boolean special = true;
             int numberOfCards = 1;
 
             if (index.endsWith("R")) {
-                type = "Reverse";
+                type =ECardType.REVERSE;
             } else if (index.endsWith("S")) {
-                type = "Skip";
+                type =ECardType.SKIP;
             } else if (index.endsWith("D")) {
-                type = "Draw2";
+                type=ECardType.DRAW2;
             } else {
                 special = false;
                 numberOfCards = maxColorCards;
-                type = "Number";
+                type = ECardType.NORMAL;
             }
             
             for(int a=0;a<numberOfCards;a++){
@@ -89,7 +89,7 @@ public class Deck {
                     
                     if(special){
                         
-                        newCard=new Card(index+".jpg",(index),a,type);
+                        newCard=new Card(index+".jpg",(index),15,type);
                         
                     }else{
                         newCard=new Card((index+a+".jpg"),(index+a),a,type);
@@ -107,18 +107,14 @@ public class Deck {
         for(String specialIndex:specialCardsList){
             Card newCard;
             int value;
-         
-
             if(specialIndex.endsWith("d")){
-                type="Wild";     
-                value=20;
+                type=ECardType.WILD;     
             }
             else{
-                type="WildDraw4";    
-                value=40;
+                type=ECardType.WILDDRAW4;
             }
             for (int c=0;c<4;c++){
-                newCard=new Card(specialIndex+".jpg",(specialIndex),value,type);
+                newCard=new Card(specialIndex+".jpg",(specialIndex),20,type);
                 deck.add(newCard);    
             }
         }

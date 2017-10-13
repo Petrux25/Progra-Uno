@@ -13,11 +13,7 @@ import uno_interface.IRemoteUno;
  * @author andpi
  */
 public class Card extends CardBase implements Serializable{
-    /*public Card(){
-        
-    }*/
-    
-   public Card(String imageName,String name,int value, String type){
+   public Card(String imageName,String name,int value, ECardType type){
        super(imageName,name,value,type);
        
    }
@@ -29,42 +25,24 @@ public class Card extends CardBase implements Serializable{
     public String getImageName() {
         return imageName;
     }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
-    }
-
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getValue() {
         return value;
     }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public String getType() {
+    public ECardType getType() {
         return type;
     }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getColor() {
+    public ECardColor getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(ECardColor color) {
         this.color = color;
     }
+   
+
 
     
    
