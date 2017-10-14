@@ -17,6 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import unoclient.UnoClient;
 import gui_client.ClientGUI;
+import javax.swing.text.DefaultStyledDocument;
+import Atxy2k.CustomTextField.RestrictedTextField;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +31,11 @@ public class JPlayerScreen extends javax.swing.JFrame {
      * Creates new form JPlayerScreen
      */
     public JPlayerScreen() {
+
         initComponents();
+        RestrictedTextField restricted;
+        restricted = new RestrictedTextField(jPlayerTextField);
+        restricted.setLimit(20);
     }
 
     /**
@@ -41,19 +48,14 @@ public class JPlayerScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
+        jPlayerTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Ingrese su nombre:");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
-        jTextArea1.setRows(1);
-        jScrollPane1.setViewportView(jTextArea1);
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jButton1.setText("Registrarse");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -69,23 +71,23 @@ public class JPlayerScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPlayerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(159, 159, 159)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(163, 163, 163)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
+                        .addGap(198, 198, 198)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(107, 107, 107)
+                .addGap(112, 112, 112)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPlayerTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(140, Short.MAX_VALUE))
         );
@@ -96,12 +98,13 @@ public class JPlayerScreen extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String textFromField, ip = "";
         String thisIp = "";
-        textFromField = jTextArea1.getText();
+        textFromField = jPlayerTextField.getText();
         ClientGUI.setPlayerName(textFromField);
+        Boolean playerCondition=false;
         
       
 
-        System.out.println(textFromField);
+       
 
       
         ///////////////////////////////////////////////////////////////////              
@@ -109,7 +112,7 @@ public class JPlayerScreen extends javax.swing.JFrame {
         try {
             thisIp = InetAddress.getLocalHost().getHostAddress();
           
-            System.out.println("IP:" + thisIp);
+          
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,15 +122,22 @@ public class JPlayerScreen extends javax.swing.JFrame {
             
             
 
-            UnoClient.getUno().addPlayer(textFromField, thisIp);
+            playerCondition=UnoClient.getUno().addPlayer(textFromField, thisIp);
         } catch (RemoteException ex) {
             Logger.getLogger(JPlayerScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if(playerCondition==false){
+            ClientGUI gui = ClientGUI.getInstance();
+            gui.setVisible(true);
+            dispose();
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"El nombre elegido no se encuentra disponible");
+        }
 
-        //System.out.println(getClientHost()); // display message
-        ClientGUI gui = ClientGUI.getInstance();
-        gui.setVisible(true);
-        dispose();
+       
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -167,11 +177,12 @@ public class JPlayerScreen extends javax.swing.JFrame {
             }
         });
     }
+    
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jPlayerTextField;
     // End of variables declaration//GEN-END:variables
 }

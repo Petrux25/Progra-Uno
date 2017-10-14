@@ -97,12 +97,12 @@ public class MainServer extends Observable implements IRMIService {
         @Override
         public void run() {
             while (true) {
-                /*try {
-                    Thread.sleep(2*1000);
+                try {
+                    Thread.sleep(3*1000);
                 } catch (Exception e) {
                     //
 
-                }*/
+                }
                 setChanged();
                 notifyObservers(new Date());
             }

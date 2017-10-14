@@ -49,8 +49,17 @@ public class GameFlow implements IRemoteUno {
 
     /////////////////////////////////////////
     @Override
-    public void addPlayer(String name, String ip) throws RemoteException {
+    public boolean addPlayer(String name, String ip) throws RemoteException {
+        boolean exists=false;
+        
+        if(validateName(name)){
+            exists=true;
+            
+        }else{
         players.add(new Player(name, ip));
+        }
+        System.out.println(exists);
+        return exists;
     }
 
     // Metodo para repartir 7 cartas a cada jugador al inicio
@@ -178,7 +187,7 @@ public class GameFlow implements IRemoteUno {
 
     }
 
-    public Card getLastCard() {
+    private Card getLastCard() {
         return lastCard;
     }
 
@@ -231,20 +240,9 @@ public class GameFlow implements IRemoteUno {
         return "Singleton created";
     }
 
-    /*@Override
-    public ArrayList<String> getHand() throws RemoteException {
-       dealFirstCards();
-       Player pig = players.get(0);
-       ArrayList<String> nombreCarta = new ArrayList<>();
-       ArrayList<Card> hand = new ArrayList<>();
-       hand = pig.getHand();
-       for(int i=0; i<hand.size();i++){
-           nombreCarta.add(hand.get(i).getImageName());
-       }
-       return nombreCarta;
        
        
-    }*/
+    
     //////////////////////////////////////////////////////////////
     @Override
     public ArrayList<String> getHand(String playerName) throws RemoteException {
@@ -274,15 +272,17 @@ public class GameFlow implements IRemoteUno {
     ///////////////////////// Method to validate that the player exists
     private boolean validateName(String player) {
         boolean compPlayer = false;
+        if(players.size()!=0){
         for (int c = 0; c < players.size(); c++) {
 
-            System.out.println(players.get(c).getName() + "skrtskrt");
+          
             if (players.get(c).getName().equals(player)) {
                 compPlayer = true;
                 break;
             }
         }
-        return true;
+        }
+        return compPlayer;
     }
 ////////////////////////Method to get the index of a player /////////////
 
@@ -303,7 +303,7 @@ public class GameFlow implements IRemoteUno {
     @Override
     public boolean validateLastCard(String nameComp, String playerComp) throws RemoteException {
         boolean compBool = false;
-        System.out.println(compBool);
+      
 
         for (int c = 0; c < players.size(); c++) {
             if (players.get(c).getName().equals(playerComp)) {
@@ -319,13 +319,13 @@ public class GameFlow implements IRemoteUno {
         }
         return compBool;
     }
-
-    public ArrayList<Card> getHandOfPlayer(int playerIndex) {
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private ArrayList<Card> getHandOfPlayer(int playerIndex) {
         ArrayList<Card> playerHand=players.get(playerIndex).getHand();
         return playerHand;
     }
-
-    public boolean validateCard(int playerIndex, String cardNameComp) {
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private boolean validateCard(int playerIndex, String cardNameComp) {
         ArrayList<Card> handOfPlayer = getHandOfPlayer(playerIndex);
         Card compCard=null;
 
@@ -333,14 +333,11 @@ public class GameFlow implements IRemoteUno {
         for (int d = 0; d < (handOfPlayer.size()); d++) {
 
             compCard = handOfPlayer.get(d);
-            System.out.println(cardNameComp + "\n\n" + compCard.getName() + "\n-------------------------------------------------------------");
-
-            System.out.println(compCard.getColor() + "\n/////////////////");
-            System.out.println(lastCard.getColor() + "\n");
-            System.out.println(compCard.getType() + "\n");
-            System.out.println(lastCard.getType() + "\n");
-            System.out.println("tipoColor");
-
+            
+           
+            char compChar=compCard.getName().charAt(compCard.getName().length()-1);
+            char lastChar=lastCard.getName().charAt(lastCard.getName().length()-1);
+        
             //Compara si la carta con el lastCard y valida si se puede jugar la card
             if (compCard.getName().equals(cardNameComp)) {
 
@@ -357,14 +354,17 @@ public class GameFlow implements IRemoteUno {
                     compBool = true;
 
                     //////////// meter metodo que ejecute otros metodos segun el tipo, ya sea tome 2, skip, reversa
-                } else if (compCard.getValue() == lastCard.getValue()) {
-                    compBool = true;
-                }
+                } //else if (Character.isDigit(compChar)&&Character.isDigit(lastChar)){
+                    if(compChar==lastChar){
+                        compBool = true;
+                    }
+               // }
                 break;
                 
             }
             /////////////////////////////////////////////////////////////////////////////////////////
         }
+        
         
         if (compBool == true) {
                 setLastCard(compCard);
@@ -373,58 +373,20 @@ public class GameFlow implements IRemoteUno {
         return compBool;
     }
 
-    public void setLastCard(Card lastCard) {
+    private void setLastCard(Card lastCard) {
         this.lastCard = lastCard;
     }
 
-    
-    /*/public boolean validateCard(int c, String cardNameComp) {
-        Card compCard;
-        boolean compBool = false;
-        for (int d = 0; d < (players.get(c).getHand().size()); d++) {
-            compCard = players.get(c).getHand().get(d);
-
-            //Compara si la carta con el lastCard y valida si se puede jugar la card
-            if (compCard.getName().equals(cardNameComp)) {
-                System.out.println("--------------------\\\\\\\\\\-----------------------");
-                System.out.println(compCard.getColor());
-                System.out.println(lastCard.getColor());
-                System.out.println("--------------------|||||||||||-----------------------");
-
-                System.out.println("skrt");
-                char compChar=compCard.getName().charAt(compCard.getName().length()-1);
-                
-                char lastChar=lastCard.getName().charAt(lastCard.getName().length()-1);
-
-                if ((compCard.getType().equals("Wild")) || (compCard.getType().equals("WildDraw4"))) {
-                    lastCard = compCard;
-                    players.get(c).getHand().remove(compCard);
-                    compBool = true;
-                    break;
-                    
-                    
-                    
-                } else if ((compCard.getColor().equals(lastCard.getColor())) || (compChar==lastChar)) {
-                    lastCard = compCard;
-                    players.get(c).getHand().remove(compCard);
-                    compBool = true;
-                    break;
-                }
-
-            }
-        }
-
-        return compBool;
-    }*/
+  
     @Override
-    public String getFirstCard() throws RemoteException {
+    public String getLastCardPlayed() throws RemoteException {
         return lastCard.getImageName();
     }
 
     @Override
     public String dealCardForPlayer(String playerName) throws RemoteException {
         String cardRet = "";
-        System.out.println(playerName + " ªªªªªªªªªªªªªªªªªªªªªªª");
+      
         if (deckList.size() == 0) {
             deckList = deck.generateDeck();
 
@@ -452,4 +414,28 @@ public class GameFlow implements IRemoteUno {
         ficacion.sendNotifi(message);
     }
 
+    @Override
+    public ArrayList<String> getPlayersNames()throws RemoteException{
+        String playerInfo;
+        ArrayList<String> cardsOfAllPlayers= new ArrayList<String>();
+        for(int p=0;p<players.size();p++){
+            playerInfo=players.get(p).getName();
+            cardsOfAllPlayers.add(playerInfo);  
+        }
+        return cardsOfAllPlayers; 
+    }
+
+    @Override
+    public ArrayList<String> getPlayersNumberOfCards() throws RemoteException {
+        String numberOfCards;
+        ArrayList<String> cardsQuantity= new ArrayList<String>();
+        for(int p=0;p<players.size();p++){
+            numberOfCards=Integer.toString(players.get(p).getHand().size());
+            cardsQuantity.add(numberOfCards);  
+        }
+        return cardsQuantity; 
+        
+    }
 }
+    
+   

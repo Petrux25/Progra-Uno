@@ -17,6 +17,7 @@ import java.rmi.server.UnicastRemoteObject;
 import uno_interface.IRemoteUno;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -93,8 +94,15 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
     public void update(Object observable, Object updateMsg) throws RemoteException {
         System.out.println("HOLA "+updateMsg);
         ClientGUI client = ClientGUI.getInstance();
-        client.setFirstCard();
+        client.setLastCardPlayed();
+        
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(UnoClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
         client.updateDeckView();
+        client.setPlayersInfo();
         
     }
     public static IRemoteUno getUno(){

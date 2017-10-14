@@ -89,7 +89,7 @@ public class Deck {
                     
                     if(special){
                         
-                        newCard=new Card(index+".jpg",(index),15,type);
+                        newCard=new Card(index+".jpg",(index),20,type);
                         
                     }else{
                         newCard=new Card((index+a+".jpg"),(index+a),a,type);
@@ -114,7 +114,7 @@ public class Deck {
                 type=ECardType.WILDDRAW4;
             }
             for (int c=0;c<4;c++){
-                newCard=new Card(specialIndex+".jpg",(specialIndex),20,type);
+                newCard=new Card(specialIndex+".jpg",(specialIndex),50,type);
                 deck.add(newCard);    
             }
         }
