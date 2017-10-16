@@ -37,7 +37,7 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
     protected UnoClient() throws RemoteException{
         super();
     }
-    
+  
     private static final long serialVersionUID=1L;
     public static void main(String[] args) {
         System.setProperty("java.security.policy","file:./java.policy");
@@ -51,11 +51,11 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
         if(System.getSecurityManager()==null){
             System.setSecurityManager(new RMISecurityManager());
             try{
-                IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.2:9999/IRMIService");
+                IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.3:9999/IRMIService");
                 UnoClient client=new UnoClient();
                 remoteService.addObserver(client);
                 
-                uno=(IRemoteUno)Naming.lookup("//192.168.100.2:9998/Uno");
+                uno=(IRemoteUno)Naming.lookup("//192.168.100.3:9998/Uno");
               
                 System.out.println(uno.mensaje());
                
@@ -97,10 +97,23 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
         client.setLastCardPlayed();
         
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException ex) {
             Logger.getLogger(UnoClient.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if(updateMsg.toString().startsWith("n")){
+            System.out.println("Se cambio el color");
+        }
+        
+        int up=getUno().isChanged();
+        if(up==1){
+            JOptionPane.showMessageDialog(null, "El color se ha cambiado");
+            System.out.println("holaaaaaa");
+        }
+        if(up==2){
+            JOptionPane.showMessageDialog(null, "Sudo kill duglot");
+        }
+            
         client.updateDeckView();
         client.setPlayersInfo();
         

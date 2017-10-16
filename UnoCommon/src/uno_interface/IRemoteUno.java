@@ -26,6 +26,7 @@ public interface IRemoteUno extends Remote{
     public void notifyColor(String color) throws RemoteException;
     public ArrayList<String> getPlayersNames() throws RemoteException;
     public ArrayList<String> getPlayersNumberOfCards() throws RemoteException;
+    public int isChanged() throws RemoteException;
     
         
         
