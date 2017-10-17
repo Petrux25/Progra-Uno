@@ -24,13 +24,14 @@ import main_class.Notification;
 public class GameFlow implements IRemoteUno {
     private static GameFlow moves = new GameFlow();
     int noti;
-    
+    Notification notification=Notification.getInstance();
     int notifyCount;
     Deck deck = new Deck();
     ArrayList<Card> deckList = new ArrayList<Card>();
     ArrayList<Player> players = new ArrayList<Player>();
     ArrayList<Card> playedCards = new ArrayList<Card>();
     Card lastCard;
+
     boolean reverse = false;
     boolean isStarted=false;
  
@@ -339,7 +340,8 @@ public class GameFlow implements IRemoteUno {
 
                 if (compCard.getType().equals(ECardType.WILD)) {
                     compBool = true;
-                    setNoti(1);
+                   
+                    notification.setMessage("Se ha cambiado el color");
 
                     //////////// 
                 } else if (compCard.getType().equals(ECardType.WILDDRAW4)) {
@@ -377,12 +379,9 @@ public class GameFlow implements IRemoteUno {
            
             setLastCard(compCard);
             handOfPlayer.remove(compCard);
-<<<<<<< HEAD
+
             checkWin(playerIndex);
-           
-=======
-            
->>>>>>> 8fc4f613754a87978f9327a9e66639f412b2aaf1
+
             
         }
         return compBool;

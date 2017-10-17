@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import uno_interface.IRMIService;
 import uno_interface.IRemoteObserver;
 import javax.swing.JOptionPane;
+import uno_interface.IRemoteNotification;
 
 
 /**
@@ -32,6 +33,7 @@ import javax.swing.JOptionPane;
  */
 public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
     static IRemoteUno uno;
+    static IRemoteNotification remoteNotification;
     
     protected UnoClient() throws RemoteException{
         super();
@@ -50,11 +52,12 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
             if(System.getSecurityManager()==null){
             System.setSecurityManager(new RMISecurityManager());
             try{
-                IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.8:9999/IRMIService");
+                IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.2:9999/IRMIService");
                 UnoClient client=new UnoClient();
                 remoteService.addObserver(client);
                 
-                uno=(IRemoteUno)Naming.lookup("//192.168.100.8:9998/Uno");
+                uno=(IRemoteUno)Naming.lookup("//192.168.100.2:9998/Uno");
+                remoteNotification=(IRemoteNotification)Naming.lookup("//192.168.100.2:9997/Noti");
             
             }catch(Exception e){
                 e.printStackTrace();
@@ -73,6 +76,15 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
         System.out.println("HOLA "+updateMsg);
         ClientGUI client = ClientGUI.getInstance();
         client.setLastCardPlayed();
+        String recMsg=remoteNotification.notification();
+        System.out.println("1"+recMsg+"--------------- jjjj ---------");
+        
+        if(!recMsg.equals("")){
+            
+            JOptionPane.showMessageDialog(null, recMsg);
+        }
+        
+        
         
         try {
             TimeUnit.SECONDS.sleep(1);
