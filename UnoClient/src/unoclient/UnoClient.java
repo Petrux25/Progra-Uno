@@ -52,12 +52,12 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
             if(System.getSecurityManager()==null){
             System.setSecurityManager(new RMISecurityManager());
             try{
-                IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.2:9999/IRMIService");
+                IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.6:9999/IRMIService");
                 UnoClient client=new UnoClient();
                 remoteService.addObserver(client);
                 
-                uno=(IRemoteUno)Naming.lookup("//192.168.100.2:9998/Uno");
-                remoteNotification=(IRemoteNotification)Naming.lookup("//192.168.100.2:9997/Noti");
+                uno=(IRemoteUno)Naming.lookup("//192.168.100.6:9998/Uno");
+                remoteNotification=(IRemoteNotification)Naming.lookup("//192.168.100.6:9997/Noti");
             
             }catch(Exception e){
                 e.printStackTrace();
@@ -77,7 +77,7 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
         ClientGUI client = ClientGUI.getInstance();
         client.setLastCardPlayed();
         String recMsg=remoteNotification.notification();
-        System.out.println("1"+recMsg+"--------------- jjjj ---------");
+     
         
         if(!recMsg.equals("")){
             
@@ -91,19 +91,8 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
         } catch (InterruptedException ex) {
             Logger.getLogger(UnoClient.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(updateMsg.toString().startsWith("n")){
-            System.out.println("Se cambio el color");
-        }
+       
         
-        int up=getUno().isChanged();
-        if(up==1){
-            JOptionPane.showMessageDialog(null, "El color se ha cambiado");
-            System.out.println("holaaaaaa");
-        }
-        if(up==2){
-            JOptionPane.showMessageDialog(null, "Sudo kill duglot");
-        }
-            
         client.updateDeckView();
         client.setPlayersInfo();
         

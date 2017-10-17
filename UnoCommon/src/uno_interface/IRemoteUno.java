@@ -23,10 +23,10 @@ public interface IRemoteUno extends Remote{
     public String getLastCardPlayed()throws RemoteException;
     public String dealCardForPlayer(String playerName)throws RemoteException;
     public void wildChangeColor(String color) throws RemoteException;
-    public void notifyColor(String color) throws RemoteException;
+  
     public ArrayList<String> getPlayersNames() throws RemoteException;
     public ArrayList<String> getPlayersNumberOfCards() throws RemoteException;
-    public int isChanged() throws RemoteException;
+    
     public boolean uno(String playerName) throws RemoteException;
     
     

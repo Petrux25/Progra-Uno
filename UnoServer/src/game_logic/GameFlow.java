@@ -11,6 +11,9 @@ import cards.ECardType;
 import deck.Deck;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main_class.Commands;
 import player.Player;
 import uno_interface.IRemoteUno;
@@ -34,6 +37,8 @@ public class GameFlow implements IRemoteUno {
 
     boolean reverse = false;
     boolean isStarted=false;
+    
+    boolean isUno=false;
  
     int turno = 0;
 
@@ -171,6 +176,7 @@ public class GameFlow implements IRemoteUno {
 
     ///////////// skip /////////////////////
     private void skip() {
+ 
         nextTurn();
         nextTurn();
 
@@ -219,20 +225,32 @@ public class GameFlow implements IRemoteUno {
 
     @Override
     public void wildChangeColor(String color) throws RemoteException {
+        String col="";
+      
 
         if (color.startsWith("R")) {
+            col="rojo";
+            
             this.lastCard.setColor(ECardColor.RED);
+       
         }
         if (color.startsWith("G")) {
             this.lastCard.setColor(ECardColor.GREEN);
+            col="verde";
+     
 
         }
         if (color.startsWith("B")) {
             this.lastCard.setColor(ECardColor.BLUE);
+            col="azul";
+       
         }
         if (color.startsWith("Y")) {
             this.lastCard.setColor(ECardColor.YELLOW);
+            col="amarillo";
+   
         }
+        notification.setMessage("Se ha cambiado el color a "+col);
 
     }
 
@@ -341,14 +359,14 @@ public class GameFlow implements IRemoteUno {
                 if (compCard.getType().equals(ECardType.WILD)) {
                     compBool = true;
                    
-                    notification.setMessage("Se ha cambiado el color");
+                   
 
-                    //////////// 
+                 
                 } else if (compCard.getType().equals(ECardType.WILDDRAW4)) {
                   
                     compBool = true;
                    
-                    setNoti(2);
+                   
 
                    
                 } else if (compCard.getColor() == lastCard.getColor()) {
@@ -367,6 +385,8 @@ public class GameFlow implements IRemoteUno {
             /////////////////////////////////////////////////////////////////////////////////////////
         }
         //////// si la carta es especial, ejecuta el metodo segun el tipo
+        
+        
          if(special){
               executeSpecialCard(compCard.getType());
                     
@@ -374,18 +394,32 @@ public class GameFlow implements IRemoteUno {
          else{
               nextTurn();
           }
+         
         
         if (compBool == true) {
            
             setLastCard(compCard);
             handOfPlayer.remove(compCard);
 
-            checkWin(playerIndex);
-
-            
+            checkWin(playerIndex); 
         }
+     
+        
+       
+           
+            
+            
+            
+        
+        
+        
         return compBool;
     }
+
+    public void setIsUno(boolean isUno) {
+        this.isUno = isUno;
+    }
+    
     
     // Metodo para verificar si una carta es especial
     
@@ -435,16 +469,7 @@ public class GameFlow implements IRemoteUno {
         return cardRet;
     }
 
-    @Override
-    public void notifyColor(String color) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void Notify(String message) {
-        
-        Notification notify = Notification.getInstance();
-        notify.sendNotifi(message);
-    }
+    
 //////////////////// Metodo remoto para obtener los nombres de los jugadores
     @Override
     public ArrayList<String> getPlayersNames() throws RemoteException {
@@ -469,57 +494,29 @@ public class GameFlow implements IRemoteUno {
         return cardsQuantity;
 
     }
-    
-    /////
 
-    @Override
-    public int isChanged() throws RemoteException {
-        int check = 0;
-        if (noti != 0) {
-
-            boolean bool = false;
-
-            if (notifyCount == (players.size())) {
-                bool = true;
-                check = 0;
-                notifyCount = 0;
-                noti = 0;
-            } else {
-                if (bool != true) {
-                    check = noti;
-                    notifyCount++;
-                }
-            }
-
-            //setNoti(0);
-        }
-        return check;
-    }
-
-    private void setNoti(int not) {
-        this.noti = not;
-
-    }
     public void checkWin(int index){
         if (players.get(index).getHand().isEmpty()){
             String winner = players.get(index).getName();
-            Notify("¡El jugador "+winner+" ha ganado!");
-            /*Commands command = Commands.getCommandInstance();
-            command.executeEndCommand();*/
+            notification.setMessage("El ganador es: "+winner);
+            Commands command = Commands.getCommandInstance();
+            command.executeEndCommand();
         }
     }
 
     @Override
     public boolean uno(String playerName) throws RemoteException {
-        boolean isUno=false;
+        boolean isOne=false;
         int index=getPlayerIndex(playerName);
         ArrayList<Card> playerHand=getHandOfPlayer(index);
         if(playerHand.size()==1){
-            isUno=true;  
+           
+            isOne=true;
         }
-        return isUno;
+        return isOne;
         
         
     }
+    
 
 }

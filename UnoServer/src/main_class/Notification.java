@@ -16,7 +16,7 @@ import uno_interface.IRemoteNotification;
  */
 public class Notification extends Observable implements IRemoteNotification {
      
-    static Notification noti = new Notification();
+    private static Notification noti = new Notification();
     String message="";
     int count=0;
 
@@ -24,13 +24,7 @@ public class Notification extends Observable implements IRemoteNotification {
         return noti;
     }
 
-    public void sendNotifi(String message) {
-        setChanged();
-        notifyObservers("n" + message);
-
-    }
-
-    public Notification() {
+    private Notification() {
 
     }
 
