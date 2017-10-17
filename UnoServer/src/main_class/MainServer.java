@@ -30,37 +30,11 @@ import java.util.Scanner;
  * @author andpi
  */
 public class MainServer extends Observable implements IRMIService {
-
-    /*ublic MainServer(){
-        
-        
-        
-        
-        
-        
-        
-        try{
-            String name="UNO";
-            IRemoteUno interfaceUno=new Card();
-            IRemoteUno stub=(IRemoteUno) UnicastRemoteObject.exportObject(interfaceUno,0);
-            
-    
-            Registry registry=LocateRegistry.createRegistry(1099);
-            
-            registry.rebind(name,stub);
-            System.out.println("Server running");
-            
-            
-            
-            
-        }catch(Exception e){
-            e.printStackTrace();
-    }*/
-
     private class WrappedObserver implements Observer, Serializable {
 
         private static final long serilVersionUID = 1L;
         private IRemoteObserver remoteObserver = null;
+        
 
         public WrappedObserver(IRemoteObserver remoteObserver) {
             this.remoteObserver = remoteObserver;
@@ -130,10 +104,9 @@ public class MainServer extends Observable implements IRMIService {
             
             
             
-            
-            ///////////////////////////
+          
             GameFlow sendGame = GameFlow.getInstance();
-           // prueba.addPlayer("Julianito", "192.168.12.1251.3641");
+          
 
             ///////////////////////////////////////////////////////////////////
             Registry r = LocateRegistry.createRegistry(9998);
@@ -148,34 +121,24 @@ public class MainServer extends Observable implements IRMIService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        /* MainServer();
-        Player player=new Player("caca","1213");
-        System.out.println(player.getName());
-        Player player2=new Player("culo","1213");
-        System.out.println(player2.getName());
-        // TODO code application logic here*/
+       
     }
     public static void Commands(){
+        Commands com=Commands.getCommandInstance();
         while (true){
             Scanner sccommand = new Scanner(System.in);
             String command;
             command= sccommand.nextLine();
             if ("players".equals(command)){
-                GameFlow GF = GameFlow.getInstance();
-                ArrayList<Player> players = GF.getPlayers();
-                for(int i = 0; i<players.size(); i++){
-                    System.out.println("Jugador: "+players.get(i).getName()+", IP: "+players.get(i).getIp());
-                    
-                }
+             com.executePlayersCommand();
             }
             else if("end".equals(command)){
-                
-                System.exit(0);
+                com.executeEndCommand();
             }
             else if("start".equals(command)){
-               GameFlow gFlow=GameFlow.getInstance();
-               gFlow.dealFirstCards();
-               System.out.println("Game started");
+               com.executeStartCommand();
+              
+               
             }      
             
         }
@@ -189,15 +152,12 @@ public class MainServer extends Observable implements IRMIService {
         public void sendNotifi(String message){
             setChanged();
             notifyObservers("n"+message);
+            
     
         }
         public Notificacion(){
             
         }
     }    
-    
-    
-    
-    
-
+   
 }

@@ -23,6 +23,7 @@ import main_class.MainServer.Notificacion;
 public class GameFlow implements IRemoteUno {
     private static GameFlow moves = new GameFlow();
     int noti;
+    
     int notifyCount;
     Deck deck = new Deck();
     ArrayList<Card> deckList = new ArrayList<Card>();
@@ -30,7 +31,17 @@ public class GameFlow implements IRemoteUno {
     ArrayList<Card> playedCards = new ArrayList<Card>();
     Card lastCard;
     boolean reverse = false;
+    boolean isStarted=false;
+ 
     int turno = 0;
+
+    public void setIsStarted(boolean isStarted) {
+        this.isStarted = isStarted;
+    }
+
+   
+    
+
 
     ///// //////////Singleton //////////////
     private GameFlow() {
@@ -42,6 +53,8 @@ public class GameFlow implements IRemoteUno {
     public static GameFlow getInstance() {
         return moves;
     }
+    
+ 
 
     /////////////////////////////////////////
     @Override
@@ -58,6 +71,9 @@ public class GameFlow implements IRemoteUno {
 
     // Metodo para repartir 7 cartas a cada jugador al inicio
     public void dealFirstCards() {
+        setIsStarted(true);
+        System.out.println(isStarted);
+        
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             for (int k = 0; k < 7; k++) {
@@ -81,7 +97,7 @@ public class GameFlow implements IRemoteUno {
     }
 
     ///// Pedir carta del deck //////////
-   public Card drawCard() {
+   private Card drawCard() {
         Card retuCard;
         if (deckList.size() == 0) {
             deckList = deck.generateDeck();
@@ -144,8 +160,7 @@ public class GameFlow implements IRemoteUno {
             }
 
         }
-        System.out.println(players.get(prev).getName());
-        System.out.println(players.get(turno).getName());
+     
         setPlayerTurn(prev);
         setPlayerTurn(turno);
       
@@ -153,28 +168,7 @@ public class GameFlow implements IRemoteUno {
     }
 
     ///////////// skip /////////////////////
-    public void skip() {
-        int prev=turno;
-
-       /* if (reverse) {
-            if ((turno > 1) && (turno <= players.size() - 1)) {
-                turno -= 2;
-            } else if (turno == 1) {
-                turno = players.size() - 1;
-            } else if (turno == 0) {
-                turno = players.size() - 2;
-            }
-        } else {
-
-            if ((turno >= 0) && (turno < (players.size() - 1))) {
-                turno += 2;
-
-            } else if (turno == (players.size() - 1)) {
-                turno = 1;
-            }
-        }*/
-       // setPlayerTurn(prev);
-        //setPlayerTurn(turno);
+    private void skip() {
         nextTurn();
         nextTurn();
 
@@ -182,8 +176,8 @@ public class GameFlow implements IRemoteUno {
     
     
 
-    ///////////////// habilitar el cambio de direccion 
-    public void setReverse() {
+    ////// metodo para aplicar la reversa
+    private void setReverse() {
         if (reverse) {
             this.reverse = false;
 
@@ -196,7 +190,7 @@ public class GameFlow implements IRemoteUno {
         
     }
 
-    public void setPlayerTurn(int index) {
+    private void setPlayerTurn(int index) {
         if(players.get(index).getTurn()){
             players.get(index).setTurn(false);
             
@@ -210,7 +204,7 @@ public class GameFlow implements IRemoteUno {
     }
 
 
-    public boolean validateTurn(String playerTurn) {
+    private boolean validateTurn(String playerTurn) {
         boolean validTurn = false;
         Player player = players.get(turno);
        
@@ -220,14 +214,6 @@ public class GameFlow implements IRemoteUno {
         return validTurn;
     }
 
-    public void game() {
-
-        while (true) {
-            Player Player = players.get(turno);
-
-        }
-
-    }
 
     @Override
     public void wildChangeColor(String color) throws RemoteException {
@@ -251,56 +237,6 @@ public class GameFlow implements IRemoteUno {
     private Card getLastCard() {
         return lastCard;
     }
-
-    /* public void setLastCard(Card selectedCard,Card lastCard) {
-        
-        if(selectedCard.getColor()==lastCard.getColor() || selectedCard.getValue()==lastCard.getValue()){
-            
-            
-        }else if(selectedCard.getType()==CardType.WILD){
-            
-            
-            
-        }else if(selectedCard.getType()==CardType.WILDDRAW4){
-                
-          
-            
-            
-            
-        }
-            
-        }
-        this.lastCard = lastCard;*/
- /* public void flow(){
-        
-        if(lastCard==null){
-            dealFirstCards();    
-        }
-        else if (lastCard==){
-            
-        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    }*/
-    ///////////////// este es para que no caiga 
-    @Override
-    public String mensaje() throws RemoteException {
-        return "Singleton created";
-    }
-
     //////////////////////////////////////////////////////////////
     @Override
     public ArrayList<String> getHand(String playerName) throws RemoteException {
@@ -313,21 +249,19 @@ public class GameFlow implements IRemoteUno {
                 for (int i = 0; i < hand.size(); i++) {
                     nombreCarta.add(hand.get(i).getImageName());
                 }
-
             }
-
         }
 
         return nombreCarta;
 
     }
-////////////// methot to get players from the players Arraylist
+////////////// metodo para obtener la lista de jugadores actuales
 
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
-    ///////////////////////// Method to validate that the player exists
+    /////////////// Metodo para validad si un jugador existe  //////////////////////////////
     private boolean validateName(String player) {
         boolean compPlayer = false;
         if (players.size() != 0) {
@@ -341,7 +275,7 @@ public class GameFlow implements IRemoteUno {
         }
         return compPlayer;
     }
-////////////////////////Method to get the index of a player /////////////
+////////////////////////Method para acceder a la posicion de un jugador /////////////
 
     private int getPlayerIndex(String wantedPlayer) {
         int index = -1;
@@ -355,8 +289,8 @@ public class GameFlow implements IRemoteUno {
 
     }
 
-    //////////////////////// Method to 
-//////////////////// metodo para poner ultima carta
+  
+//////////////////// metodo para poner carta seleccionada en caso de que sea valida
     @Override
     public boolean validateLastCard(String nameComp, String playerComp) throws RemoteException {
         boolean compBool = false;
@@ -369,9 +303,7 @@ public class GameFlow implements IRemoteUno {
                        
                         break;
                     }
-
                     break;
-
                 }
             }
         }
@@ -383,14 +315,13 @@ public class GameFlow implements IRemoteUno {
         ArrayList<Card> playerHand = players.get(playerIndex).getHand();
         return playerHand;
     }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////// Validar que la carta puede jugarse /////////////////////////////////////////////////////////////////////////////////////
 
     private boolean validateCard(int playerIndex, String cardNameComp) {
         Boolean special=false;
         ArrayList<Card> handOfPlayer = getHandOfPlayer(playerIndex);
         Card compCard = null;
-        System.out.println(turno+"   skrrrrrrrrrrrrrt");
-        System.out.println("----------------------------\n\n");
+      
         
 
         boolean compBool = false;
@@ -401,9 +332,9 @@ public class GameFlow implements IRemoteUno {
             char compChar = compCard.getName().charAt(compCard.getName().length() - 1);
             char lastChar = lastCard.getName().charAt(lastCard.getName().length() - 1);
 
-            //Compara si la carta con el lastCard y valida si se puede jugar la card
+            
             if (compCard.getName().equals(cardNameComp)) {
-                special=isSpecialDraw(compCard.getType());
+                special=isSpecial(compCard.getType());
 
                 if (compCard.getType().equals(ECardType.WILD)) {
                     compBool = true;
@@ -416,26 +347,23 @@ public class GameFlow implements IRemoteUno {
                    
                     setNoti(2);
 
-                    //////////// meter metodo para tomar 4
+                   
                 } else if (compCard.getColor() == lastCard.getColor()) {
                     compBool = true;
-                    
-
-                    //////////// meter metodo que ejecute otros metodos segun el tipo, ya sea tome 2, skip, reversa
-                } //else if (Character.isDigit(compChar)&&Character.isDigit(lastChar)){
+                }
                 
               
                 
                 if (compChar == lastChar) {
                     compBool = true;
                 }
-                // }
+             
                 break;
 
             }
             /////////////////////////////////////////////////////////////////////////////////////////
         }
-        
+        //////// si la carta es especial, ejecuta el metodo segun el tipo
          if(special){
               executeSpecialCard(compCard.getType());
                     
@@ -444,8 +372,6 @@ public class GameFlow implements IRemoteUno {
               nextTurn();
           }
         
-     
-
         if (compBool == true) {
            
             setLastCard(compCard);
@@ -456,38 +382,51 @@ public class GameFlow implements IRemoteUno {
         return compBool;
     }
     
+    // Metodo para verificar si una carta es especial
     
-    private boolean isSpecialDraw(ECardType cardType){
+    private boolean isSpecial(ECardType cardType){
         boolean condition=false;
-        if((!cardType.equals(ECardType.NORMAL)) &&(!cardType.equals(ECardType.WILD))/*&&(!cardType.equals(ECardType.REVERSE))*/){
+        if((!cardType.equals(ECardType.NORMAL)) &&(!cardType.equals(ECardType.WILD))){
             condition=true;
         }
         return condition;
     }
-
+    // Metodo para poner la ultima carta
     private void setLastCard(Card lastCard) {
         this.lastCard = lastCard;
     }
+    
+    //Metodo remoto que permite obtener la ultima carta
 
     @Override
     public String getLastCardPlayed() throws RemoteException {
         return lastCard.getImageName();
     }
+    
+    //Metodo remoto para dar una carta a un jugador en caso de que la pida
 
     @Override
     public String dealCardForPlayer(String playerName) throws RemoteException {
         String cardRet = "";
-        if(validateTurn(playerName)){ 
+        if(isStarted){
+       
 
-        for (int pb = 0; pb < players.size(); pb++) {
-            if (players.get(pb).getName().equals(playerName)) {
-                Card reqCard = drawCard();              
-                players.get(pb).setCard(reqCard);
-                cardRet = reqCard.getImageName();
+       
+            if (validateTurn(playerName)) {
+                
 
+                for (int pb = 0; pb < players.size(); pb++) {
+                    if (players.get(pb).getName().equals(playerName)) {
+                        Card reqCard = drawCard();
+                        players.get(pb).setCard(reqCard);
+                        cardRet = reqCard.getImageName();
+
+                    }
+                }
             }
         }
-        }
+        
+
         return cardRet;
     }
 
@@ -501,7 +440,7 @@ public class GameFlow implements IRemoteUno {
         Notificacion ficacion = noti.new Notificacion();
         ficacion.sendNotifi(message);
     }
-
+//////////////////// Metodo remoto para obtener los nombres de los jugadores
     @Override
     public ArrayList<String> getPlayersNames() throws RemoteException {
         String playerInfo;
@@ -512,6 +451,7 @@ public class GameFlow implements IRemoteUno {
         }
         return cardsOfAllPlayers;
     }
+    //Metodo remoto para obtener la cantidad de cartas de cada jugador 
 
     @Override
     public ArrayList<String> getPlayersNumberOfCards() throws RemoteException {
@@ -524,6 +464,8 @@ public class GameFlow implements IRemoteUno {
         return cardsQuantity;
 
     }
+    
+    /////
 
     @Override
     public int isChanged() throws RemoteException {
@@ -549,7 +491,7 @@ public class GameFlow implements IRemoteUno {
         return check;
     }
 
-    public void setNoti(int not) {
+    private void setNoti(int not) {
         this.noti = not;
 
     }

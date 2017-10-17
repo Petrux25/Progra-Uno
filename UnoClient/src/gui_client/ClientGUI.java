@@ -285,9 +285,10 @@ public class ClientGUI extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
             String cardName=UnoClient.getUno().dealCardForPlayer(playerName);
+            if(!cardName.equals("")){
         
-            updateDeckView();
-            
+                    updateDeckView();
+            }
             
             
         } catch (RemoteException ex) {

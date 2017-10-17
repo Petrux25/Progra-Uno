@@ -26,7 +26,6 @@ import uno_interface.IRemoteObserver;
 import javax.swing.JOptionPane;
 
 
-
 /**
  *
  * @author diesv
@@ -48,7 +47,7 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
         
       
         
-        if(System.getSecurityManager()==null){
+            if(System.getSecurityManager()==null){
             System.setSecurityManager(new RMISecurityManager());
             try{
                 IRMIService remoteService=(IRMIService)Naming.lookup("//192.168.100.3:9999/IRMIService");
@@ -56,10 +55,7 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
                 remoteService.addObserver(client);
                 
                 uno=(IRemoteUno)Naming.lookup("//192.168.100.3:9998/Uno");
-              
-                System.out.println(uno.mensaje());
-               
-                
+            
             }catch(Exception e){
                 e.printStackTrace();
                 javax.swing.JOptionPane.showMessageDialog(null,"Error al conectar, el servidor no se encuentra disponible");
@@ -71,24 +67,6 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
         }
      
     }
-   /* public static void Connect(){
-         try{
-            String name = "UNO";
-            
-            Registry registry = LocateRegistry.getRegistry("25.66.13.91",1099);
-            IRemoteUno test = (IRemoteUno) registry.lookup(name);
-         
-           
-            System.out.println(test.mensaje());
-            
-       
-            
-        }catch(Exception e){
-            System.err.println("Error en el cliente ");
-            e.printStackTrace();
-            
-        }
-    }*/
 
     @Override
     public void update(Object observable, Object updateMsg) throws RemoteException {

@@ -15,29 +15,25 @@ import java.util.Collections;
  * @author andpi
  */
 public class Deck {
-    
 
     private static final int maxColorCards = 9;
     ArrayList<Card> fullDeck = new ArrayList<Card>();
-    
-    
-    
+
     //////////// Constructor de la clase /////////////
-    public Deck(){
-        this.fullDeck=generateDeck();
-        
-    }
-    
-    ///////////////// Funcion para barajar el deck /////////////////////////
-    
-    public void shuffleDeck (ArrayList<Card> deckToShuffle){
-        for(int s=0;s<4;s++){
-            Collections.shuffle(deckToShuffle);
-        }
-        
+    public Deck() {
+        this.fullDeck = generateDeck();
+
     }
 
-    ////////////////////////////////////////////////////////  Funcion para generar nombres de carta de color //////////////////////////////////////////////////////////////
+    ///////////////// Funcion para barajar el deck /////////////////////////
+    public void shuffleDeck(ArrayList<Card> deckToShuffle) {
+        for (int s = 0; s < 4; s++) {
+            Collections.shuffle(deckToShuffle);
+        }
+
+    }
+
+    ////////////////////////////  Funcion para generar nombres de carta de color //////////////////////////////////////////////////////////////
     private ArrayList<String> generateColorCardsNames() {
         ArrayList<String> colorArray = new ArrayList<String>();
 
@@ -48,7 +44,7 @@ public class Deck {
         return colorArray;
     }
 
-    /////////////////////////////////////////////////////// Funcion para generar los nombres de cartas especiales sin color ////////////////////////////////////////////////////////////////
+    //////////////////////////////// Funcion para generar los nombres de cartas especiales sin color ////////////////////////////////////////////////////////////////
     private ArrayList<String> generateSpecialCardsNames() {
         ArrayList<String> specialArray = new ArrayList<String>();
         specialArray.add("WildDraw4");
@@ -60,73 +56,74 @@ public class Deck {
     public ArrayList<Card> generateDeck() {
         ArrayList<String> colorCardsList = new ArrayList<String>();
         ArrayList<String> specialCardsList = new ArrayList<String>();
-        ArrayList<Card> deck= new ArrayList<Card>();
+        ArrayList<Card> deck = new ArrayList<Card>();
 
         colorCardsList = generateColorCardsNames();
         specialCardsList = generateSpecialCardsNames();
         ECardType type;
-        
-      //// loop para generar las cartas normales e introducirlas en el ArrayList deck
+
+        //// loop para generar las cartas normales e introducirlas en el ArrayList deck
         for (String index : colorCardsList) {
             boolean special = true;
             int numberOfCards = 1;
 
             if (index.endsWith("R")) {
-                type =ECardType.REVERSE;
+                type = ECardType.REVERSE;
             } else if (index.endsWith("S")) {
-                type =ECardType.SKIP;
+                type = ECardType.SKIP;
             } else if (index.endsWith("D")) {
-                type=ECardType.DRAW2;
+                type = ECardType.DRAW2;
             } else {
                 special = false;
                 numberOfCards = maxColorCards;
                 type = ECardType.NORMAL;
             }
-            
-            for(int a=0;a<numberOfCards;a++){
-                for(int b=0;b<2;b++){
+
+            for (int a = 0; a < numberOfCards; a++) {
+                for (int b = 0; b < 2; b++) {
                     Card newCard;
-                    
-                    if(special){
-                        
-                        newCard=new Card(index+".jpg",(index),20,type);
-                        
-                    }else{
-                        newCard=new Card((index+a+".jpg"),(index+a),a,type);
-                        if(a==0){
-                            b=2;
+
+                    if (special) {
+
+                        newCard = new Card(index + ".jpg", (index), 20, type);
+
+                    } else {
+                        newCard = new Card((index + a + ".jpg"), (index + a), a, type);
+                        if (a == 0) {
+                            b = 2;
                         }
                     }
                     deck.add(newCard);
-                }  
+                }
             }
         }
-        
+
         //////////// loop para generar cartas especiales
-        
-        for(String specialIndex:specialCardsList){
+        for (String specialIndex : specialCardsList) {
             Card newCard;
             int value;
-            if(specialIndex.endsWith("d")){
-                type=ECardType.WILD;     
+            if (specialIndex.endsWith("d")) {
+                type = ECardType.WILD;
+            } else {
+                type = ECardType.WILDDRAW4;
             }
-            else{
-                type=ECardType.WILDDRAW4;
-            }
-            for (int c=0;c<4;c++){
-                newCard=new Card(specialIndex+".jpg",(specialIndex),50,type);
-                deck.add(newCard);    
+            for (int c = 0; c < 4; c++) {
+                newCard = new Card(specialIndex + ".jpg", (specialIndex), 50, type);
+                deck.add(newCard);
             }
         }
-        shuffleDeck(deck);
+        for (int i = 0; i < 4; i++) {
+            shuffleDeck(deck);
+        }
+
         return deck;
     }
     
-    public Card getCardFromDeck(){
-        Card retCard=fullDeck.get(0);
+    // Funcion para tomar una carta del deck
+
+    public Card getCardFromDeck() {
+        Card retCard = fullDeck.get(0);
         fullDeck.remove(0);
-        return  retCard;
+        return retCard;
     }
 }
-
-

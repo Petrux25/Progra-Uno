@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @author andpi
  */
 public interface IRemoteUno extends Remote{
-    public String mensaje() throws RemoteException;
+   
     public ArrayList<String> getHand(String playerName) throws RemoteException; 
     public boolean addPlayer(String name,String ip) throws RemoteException;
     public boolean validateLastCard(String nameComp,String playerComp) throws RemoteException;
