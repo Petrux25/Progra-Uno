@@ -11,10 +11,11 @@ import cards.ECardType;
 import deck.Deck;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import main_class.Commands;
 import player.Player;
 import uno_interface.IRemoteUno;
 import main_class.MainServer;
-import main_class.MainServer.Notificacion;
+import main_class.Notification;
 
 /**
  *
@@ -376,7 +377,8 @@ public class GameFlow implements IRemoteUno {
            
             setLastCard(compCard);
             handOfPlayer.remove(compCard);
-            System.out.println(turno);
+            checkWin(playerIndex);
+           
             
         }
         return compBool;
@@ -436,9 +438,9 @@ public class GameFlow implements IRemoteUno {
     }
 
     public void Notify(String message) {
-        MainServer noti = new MainServer();
-        Notificacion ficacion = noti.new Notificacion();
-        ficacion.sendNotifi(message);
+        
+        Notification notify = Notification.getInstance();
+        notify.sendNotifi(message);
     }
 //////////////////// Metodo remoto para obtener los nombres de los jugadores
     @Override
@@ -494,6 +496,14 @@ public class GameFlow implements IRemoteUno {
     private void setNoti(int not) {
         this.noti = not;
 
+    }
+    public void checkWin(int index){
+        if (players.get(index).getHand().isEmpty()){
+            String winner = players.get(index).getName();
+            Notify("¡El jugador "+winner+" ha ganado!");
+            /*Commands command = Commands.getCommandInstance();
+            command.executeEndCommand();*/
+        }
     }
 
 }

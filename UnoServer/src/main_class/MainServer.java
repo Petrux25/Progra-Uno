@@ -144,20 +144,6 @@ public class MainServer extends Observable implements IRMIService {
         }
     }
    
-        public  class Notificacion extends Observable{
-        Notificacion noti = new Notificacion();
-        public  Notificacion getInstance() {
-            return noti;
-        }
-        public void sendNotifi(String message){
-            setChanged();
-            notifyObservers("n"+message);
-            
-    
-        }
-        public Notificacion(){
-            
-        }
-    }    
+           
    
 }
