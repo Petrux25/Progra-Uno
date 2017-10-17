@@ -73,7 +73,7 @@ public class UnoClient extends UnicastRemoteObject implements IRemoteObserver{
 
     @Override
     public void update(Object observable, Object updateMsg) throws RemoteException {
-        System.out.println("HOLA "+updateMsg);
+        System.out.println(updateMsg);
         ClientGUI client = ClientGUI.getInstance();
         client.setLastCardPlayed();
         String recMsg=remoteNotification.notification();

@@ -125,7 +125,7 @@ public class JPlayerScreen extends javax.swing.JFrame {
             playerCondition=UnoClient.getUno().addPlayer(textFromField, thisIp);
         } catch (RemoteException ex) {
             Logger.getLogger(JPlayerScreen.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("chispas");
+          
         }
         if(playerCondition==false){
             ClientGUI gui = ClientGUI.getInstance();

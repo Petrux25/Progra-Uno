@@ -79,7 +79,7 @@ public class GameFlow implements IRemoteUno {
     // Metodo para repartir 7 cartas a cada jugador al inicio
     public void dealFirstCards() {
         setIsStarted(true);
-        System.out.println(isStarted);
+       
         
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
