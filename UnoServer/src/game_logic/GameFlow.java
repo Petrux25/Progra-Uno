@@ -178,6 +178,8 @@ public class GameFlow implements IRemoteUno {
     private void skip() {
  
         nextTurn();
+        String skippedname = players.get(turno).getName();
+        notification.setMessage("Se ha saltado el turno de: "+skippedname);
         nextTurn();
 
     }
