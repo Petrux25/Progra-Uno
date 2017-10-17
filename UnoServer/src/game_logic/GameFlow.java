@@ -376,7 +376,7 @@ public class GameFlow implements IRemoteUno {
            
             setLastCard(compCard);
             handOfPlayer.remove(compCard);
-            System.out.println(turno);
+            
             
         }
         return compBool;
@@ -494,6 +494,19 @@ public class GameFlow implements IRemoteUno {
     private void setNoti(int not) {
         this.noti = not;
 
+    }
+
+    @Override
+    public boolean uno(String playerName) throws RemoteException {
+        boolean isUno=false;
+        int index=getPlayerIndex(playerName);
+        ArrayList<Card> playerHand=getHandOfPlayer(index);
+        if(playerHand.size()==1){
+            isUno=true;  
+        }
+        return isUno;
+        
+        
     }
 
 }

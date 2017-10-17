@@ -27,6 +27,8 @@ public interface IRemoteUno extends Remote{
     public ArrayList<String> getPlayersNames() throws RemoteException;
     public ArrayList<String> getPlayersNumberOfCards() throws RemoteException;
     public int isChanged() throws RemoteException;
+    public boolean uno(String playerName) throws RemoteException;
+    
     
         
         

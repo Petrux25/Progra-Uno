@@ -207,8 +207,20 @@ public class ClientGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-       //javax.swing.JOptionPane.showMessageDialog(null, "¡UNO!");
-       new UnoGui().setVisible(true);
+        boolean isUno=false;
+        
+        try {
+            //javax.swing.JOptionPane.showMessageDialog(null, "¡UNO!");
+           isUno=UnoClient.getUno().uno(playerName);
+        } catch (RemoteException ex) {
+            Logger.getLogger(ClientGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(isUno){
+            new UnoGui().setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Tiene más de una carta");
+        }
       
      
     }//GEN-LAST:event_button1ActionPerformed
