@@ -19,6 +19,7 @@ import uno_interface.IRemoteUno;
 import uno_interface.IRMIService;
 import uno_interface.IRemoteObserver;
 import java.util.Scanner;
+import uno_interface.IRemoteNotification;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -110,10 +111,19 @@ public class MainServer extends Observable implements IRMIService {
 
             ///////////////////////////////////////////////////////////////////
             Registry r = LocateRegistry.createRegistry(9998);
-            
-
             IRemoteUno uno = (IRemoteUno) UnicastRemoteObject.exportObject(sendGame, 9998);
             r.bind("Uno", uno);
+            
+            
+            Notification notif=Notification.getInstance();
+            Registry remNoti = LocateRegistry.createRegistry(9997);
+            IRemoteNotification rmNoti=(IRemoteNotification)UnicastRemoteObject.exportObject(notif, 9997);
+            remNoti.bind("Noti", rmNoti);
+            
+            
+            
+            
+            
 
             System.out.println("Server running");
             Commands();
@@ -124,6 +134,7 @@ public class MainServer extends Observable implements IRMIService {
        
     }
     public static void Commands(){
+        Notification not =Notification.getInstance();
         Commands com=Commands.getCommandInstance();
         while (true){
             Scanner sccommand = new Scanner(System.in);
@@ -137,6 +148,8 @@ public class MainServer extends Observable implements IRMIService {
             }
             else if("start".equals(command)){
                com.executeStartCommand();
+               not.setMessage("El juego ha comenzado");
+               
               
                
             }      
